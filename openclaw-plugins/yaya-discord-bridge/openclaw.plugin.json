@@ -1,0 +1,25 @@
+{
+  "id": "yaya-discord-bridge",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "backendUrl": {
+        "type": "string",
+        "description": "YaYa backend base URL"
+      },
+      "sharedSecret": {
+        "type": "string",
+        "description": "Optional x-openclaw-secret value"
+      },
+      "channels": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Channels handled by the bridge"
+      }
+    }
+  }
+}
+

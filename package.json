@@ -1,0 +1,31 @@
+{
+  "name": "yaya-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:web": "next dev",
+    "dev:backend": "npm --prefix services/yaya-backend run dev",
+    "openclaw:help": "openclaw --help",
+    "openclaw:doctor": "openclaw --dev doctor",
+    "openclaw:gateway": "openclaw --dev gateway",
+    "openclaw:dashboard": "openclaw --dev dashboard",
+    "openclaw:install-bridge": "openclaw --dev plugins install --link ./openclaw-plugins/yaya-discord-bridge",
+    "openclaw:plugins": "openclaw --dev plugins list",
+    "openclaw:skills": "openclaw --dev skills list",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit -p tsconfig.typecheck.json"
+  },
+  "dependencies": {
+    "next": "^16.2.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.2"
+  }
+}

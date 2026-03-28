@@ -1,0 +1,14 @@
+.git
+.next
+node_modules
+services/yaya-backend/node_modules
+backend.stdout.log
+backend.stderr.log
+web.stdout.log
+web.stderr.log
+web3001.stdout.log
+web3001.stderr.log
+tsconfig.tsbuildinfo
+tsconfig.typecheck.tsbuildinfo
+npm-debug.log*
+*.local
