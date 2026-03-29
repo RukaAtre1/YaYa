@@ -1,0 +1,26 @@
+
+> yaya-local-agent@0.1.0 dev
+> node --watch src/server.js
+
+YaYa local agent listening on http://127.0.0.1:8791
+Restarting 'src/server.js'
+YaYa local agent listening on http://127.0.0.1:8791
+Restarting 'src/server.js'
+YaYa local agent listening on http://127.0.0.1:8791
+Restarting 'src/server.js'
+YaYa local agent listening on http://127.0.0.1:8791
+Failed running 'src/server.js'. Waiting for file changes before restarting...
+Restarting 'src/server.js'
+YaYa local agent listening on http://127.0.0.1:8791
+Restarting 'src/server.js'
+Failed running 'src/server.js'. Waiting for file changes before restarting...
+Restarting 'src/server.js'
+YaYa local agent listening on http://127.0.0.1:8791
+Restarting 'src/server.js'
+YaYa local agent listening on http://127.0.0.1:8791
+Restarting 'src/server.js'
+Failed running 'src/server.js'. Waiting for file changes before restarting...
+Restarting 'src/server.js'
+YaYa local agent listening on http://127.0.0.1:8791
+Restarting 'src/server.js'
+Failed running 'src/server.js'. Waiting for file changes before restarting...

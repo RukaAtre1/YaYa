@@ -6,6 +6,7 @@
     "dev": "next dev",
     "dev:web": "next dev",
     "dev:backend": "npm --prefix services/yaya-backend run dev",
+    "dev:agent": "npm --prefix services/yaya-local-agent run dev",
     "openclaw:help": "openclaw --help",
     "openclaw:doctor": "openclaw --dev doctor",
     "openclaw:gateway": "openclaw --dev gateway",
@@ -14,8 +15,12 @@
     "openclaw:plugins": "openclaw --dev plugins list",
     "openclaw:skills": "openclaw --dev skills list",
     "build": "next build",
-    "start": "next start",
-    "typecheck": "tsc --noEmit -p tsconfig.typecheck.json"
+    "start": "node scripts/start-standalone.js",
+    "start:agent": "npm --prefix services/yaya-local-agent run start",
+    "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
+    "deploy:up": "docker compose up --build -d",
+    "deploy:down": "docker compose down",
+    "deploy:logs": "docker compose logs -f"
   },
   "dependencies": {
     "next": "^16.2.1",

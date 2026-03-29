@@ -5,11 +5,17 @@ import {
   sampleProfile,
   buildSampleReply
 } from "@/lib/demo-data";
+import { normalizeImportInput as normalizeImportInputLocally } from "@/lib/import-normalizers";
 import type {
   AmbienceLoop,
   ApiErrorPayload,
   ChatMessage,
   ExpressionState,
+  ImportFileNormalizationRequest,
+  ImportNormalizationRequest,
+  ImportNormalizationResult,
+  LocalAgentScanResult,
+  OpenClawDiscordStatus,
   PersonaCard,
   RelationalProfile,
   SpeechSynthesisResult
@@ -17,6 +23,10 @@ import type {
 
 function getBackendUrl() {
   return process.env.YAYA_BACKEND_URL ?? "http://localhost:8787";
+}
+
+function getLocalAgentUrl() {
+  return process.env.YAYA_LOCAL_AGENT_URL ?? "http://127.0.0.1:8791";
 }
 
 export class BackendProxyError extends Error {
@@ -113,6 +123,142 @@ export async function fetchBackendHealth() {
   }>("/health", { method: "GET" });
 }
 
+export async function fetchLocalAgentScan(source: "discord" | "wechat") {
+  try {
+    const response = await fetch(`${getLocalAgentUrl()}/v1/scan/${source === "discord" ? "discord-exports" : "wechat-dbs"}`, {
+      method: "GET",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      const payload = (await response.json().catch(() => null)) as ApiErrorPayload | null;
+      throw new BackendProxyError(
+        payload?.error?.message ?? `Local agent request failed with status ${response.status}.`,
+        {
+          code: payload?.error?.code ?? "local_agent_request_failed",
+          status: response.status,
+          details: payload?.error?.details
+        }
+      );
+    }
+
+    return (await response.json()) as LocalAgentScanResult;
+  } catch (error) {
+    if (error instanceof BackendProxyError) {
+      throw error;
+    }
+
+    throw new BackendProxyError("Failed to reach the YaYa local agent.", {
+      code: "local_agent_unreachable",
+      status: 502,
+      details: error instanceof Error ? error.message : String(error)
+    });
+  }
+}
+
+export async function fetchOpenClawDiscordStatus() {
+  try {
+    const response = await fetch(`${getLocalAgentUrl()}/v1/openclaw/discord/status`, {
+      method: "GET",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      const payload = (await response.json().catch(() => null)) as ApiErrorPayload | null;
+      throw new BackendProxyError(
+        payload?.error?.message ?? `OpenClaw status request failed with status ${response.status}.`,
+        {
+          code: payload?.error?.code ?? "openclaw_status_failed",
+          status: response.status,
+          details: payload?.error?.details
+        }
+      );
+    }
+
+    return (await response.json()) as OpenClawDiscordStatus;
+  } catch (error) {
+    if (error instanceof BackendProxyError) {
+      throw error;
+    }
+
+    throw new BackendProxyError("Failed to reach the YaYa local agent.", {
+      code: "local_agent_unreachable",
+      status: 502,
+      details: error instanceof Error ? error.message : String(error)
+    });
+  }
+}
+
+export async function connectOpenClawDiscord(input: { token?: string }) {
+  try {
+    const response = await fetch(`${getLocalAgentUrl()}/v1/openclaw/discord/connect`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(input),
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      const payload = (await response.json().catch(() => null)) as ApiErrorPayload | null;
+      throw new BackendProxyError(
+        payload?.error?.message ?? `OpenClaw connect request failed with status ${response.status}.`,
+        {
+          code: payload?.error?.code ?? "openclaw_connect_failed",
+          status: response.status,
+          details: payload?.error?.details
+        }
+      );
+    }
+
+    return (await response.json()) as OpenClawDiscordStatus;
+  } catch (error) {
+    if (error instanceof BackendProxyError) {
+      throw error;
+    }
+
+    throw new BackendProxyError("Failed to reach the YaYa local agent.", {
+      code: "local_agent_unreachable",
+      status: 502,
+      details: error instanceof Error ? error.message : String(error)
+    });
+  }
+}
+
+export async function startOpenClawGateway() {
+  try {
+    const response = await fetch(`${getLocalAgentUrl()}/v1/openclaw/gateway/start`, {
+      method: "POST",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      const payload = (await response.json().catch(() => null)) as ApiErrorPayload | null;
+      throw new BackendProxyError(
+        payload?.error?.message ?? `OpenClaw gateway start failed with status ${response.status}.`,
+        {
+          code: payload?.error?.code ?? "openclaw_gateway_start_failed",
+          status: response.status,
+          details: payload?.error?.details
+        }
+      );
+    }
+
+    return (await response.json()) as { started: boolean };
+  } catch (error) {
+    if (error instanceof BackendProxyError) {
+      throw error;
+    }
+
+    throw new BackendProxyError("Failed to reach the YaYa local agent.", {
+      code: "local_agent_unreachable",
+      status: 502,
+      details: error instanceof Error ? error.message : String(error)
+    });
+  }
+}
+
 export async function fetchImportRows() {
   return safeJsonFetch(
     "/v1/import",
@@ -122,6 +268,58 @@ export async function fetchImportRows() {
       rows: sampleMessages
     }
   );
+}
+
+export async function fetchImportNormalization(
+  input: ImportNormalizationRequest
+): Promise<ImportNormalizationResult> {
+  try {
+    return await safeJsonFetch<ImportNormalizationResult>("/v1/import/normalize", {
+      method: "POST",
+      body: JSON.stringify(input)
+    });
+  } catch (error) {
+    if (error instanceof BackendProxyError && error.code === "backend_unreachable") {
+      return normalizeImportInputLocally(input);
+    }
+
+    throw error;
+  }
+}
+
+export async function fetchImportFileNormalization(
+  input: ImportFileNormalizationRequest
+): Promise<ImportNormalizationResult> {
+  return safeJsonFetch<ImportNormalizationResult>("/v1/import/file", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+}
+
+export async function saveGeneratedSession(input: {
+  id?: string;
+  sourceText: string;
+  source: string;
+  importFormat: string;
+  threadId: string;
+  normalizedMessages: unknown[];
+  speakers: string[];
+  profile: RelationalProfile;
+  persona: PersonaCard;
+  avatar: typeof sampleAvatar;
+  avatarModel: string;
+  createdAt: string;
+}) {
+  return safeJsonFetch("/v1/sessions", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+}
+
+export async function fetchLatestGeneratedSession() {
+  return safeJsonFetch("/v1/sessions/latest", {
+    method: "GET"
+  });
 }
 
 export async function fetchAnalysis(transcript: string, allowFallback = false) {

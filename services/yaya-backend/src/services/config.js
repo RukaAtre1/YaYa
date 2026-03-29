@@ -52,6 +52,8 @@ export function getConfig() {
     geminiDynamicImageModel: process.env.GEMINI_DYNAMIC_IMAGE_MODEL ?? "",
     lyriaModel: process.env.LYRIA_MODEL ?? "Lyria 3 Clip",
     openClawSharedSecret: process.env.OPENCLAW_SHARED_SECRET ?? "",
-    allowMockFallback: String(process.env.YAYA_ALLOW_MOCK_FALLBACK ?? "false").toLowerCase() === "true"
+    allowMockFallback: String(process.env.YAYA_ALLOW_MOCK_FALLBACK ?? "false").toLowerCase() === "true",
+    sqlitePath:
+      process.env.YAYA_SQLITE_PATH ?? path.join(workspaceRoot, "data", "yaya.sqlite")
   };
 }

@@ -1,10 +1,1655 @@
-⨯ Failed to start server
-Error: listen EADDRINUSE: address already in use :::3000
-    at <unknown> (Error: listen EADDRINUSE: address already in use :::3000)
-    at new Promise (<anonymous>) {
-  code: 'EADDRINUSE',
-  errno: -4091,
-  syscall: 'listen',
-  address: '::',
-  port: 3000
-}
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] Uncaught Error: ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] Uncaught Error: ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] Uncaught Error: ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] Uncaught Error: ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+[browser] Uncaught Error: ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+[browser] ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+https://nextjs.org/docs/messages/module-not-found 
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] Uncaught Error: ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+⨯ ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mSetupFlow[0m } [36mfrom[0m [32m"@/components/setup-flow"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mOverviewPage[0m() {
+  [90m4 |[0m   [36mreturn[0m <[33mSetupFlow[0m />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] Uncaught Error: ./app/page.tsx:1:1
+Module not found: Can't resolve '@/components/setup-flow'
+> 1 | import { SetupFlow } from "@/components/setup-flow";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | export default function OverviewPage() {
+  4 |   return <SetupFlow />;
+
+Import map: aliased to relative './components/setup-flow' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./app/page.tsx:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+^C^C

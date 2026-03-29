@@ -1,5 +1,14 @@
 export type SupportedSource = "wechat" | "discord" | "sample";
 
+export type ImportFormat =
+  | "discord_json"
+  | "discord_exporter_json"
+  | "discord_exporter_csv"
+  | "discord_transcript"
+  | "wechat_transcript"
+  | "wechat_history_sqlite"
+  | "sample_transcript";
+
 export type MessageRecord = {
   id: string;
   threadId: string;
@@ -8,6 +17,62 @@ export type MessageRecord = {
   timestamp: string;
   text: string;
   source: SupportedSource;
+};
+
+export type ImportNormalizationRequest = {
+  source: SupportedSource;
+  rawInput: string;
+  fileName?: string;
+};
+
+export type ImportFileNormalizationRequest = {
+  source: SupportedSource;
+  filePath: string;
+  fileName?: string;
+  contactName?: string;
+  contactId?: string;
+  listContacts?: boolean;
+};
+
+export type WeChatContact = {
+  user_name: string;
+  display_name: string;
+};
+
+export type WeChatContactListResult = {
+  contacts: WeChatContact[];
+};
+
+export type ImportNormalizationResult = {
+  source: SupportedSource;
+  detectedFormat: ImportFormat;
+  threadId: string;
+  transcript: string;
+  rows: MessageRecord[];
+  speakers: string[];
+  warnings: string[];
+};
+
+export type LocalAgentFileRecord = {
+  path: string;
+  fileName: string;
+  sizeBytes: number;
+  modifiedAt: string | null;
+};
+
+export type LocalAgentScanResult = {
+  source: "discord" | "wechat";
+  files: LocalAgentFileRecord[];
+};
+
+export type OpenClawDiscordStatus = {
+  gatewayReachable: boolean;
+  bridgeLoaded: boolean;
+  discordConfigured: boolean;
+  discordConnected: boolean;
+  channelStatusLine: string;
+  rawChannelsStatus: string;
+  rawPluginsStatus: string;
 };
 
 export type EvidenceSnippet = {
@@ -106,6 +171,48 @@ export type AmbienceLoop = {
   layer: string;
   model: string;
   source: string;
+};
+
+export type RuntimeCapabilityState = "ready" | "limited" | "offline";
+
+export type RuntimeCapability = {
+  state: RuntimeCapabilityState;
+  label: string;
+  detail: string;
+};
+
+export type BackendHealth = {
+  ok: boolean;
+  service: string;
+  models: Record<string, string | boolean | null>;
+  openClawSecretConfigured: boolean;
+  realtime: {
+    backend: RuntimeCapability;
+    discordHistory: RuntimeCapability;
+    discordBridge: RuntimeCapability;
+    discordRelay: RuntimeCapability;
+    wechatImport: RuntimeCapability;
+  };
+};
+
+export type GeneratedVirtualHumanSession = {
+  id?: string;
+  sourceText: string;
+  source: SupportedSource;
+  importFormat: ImportFormat;
+  threadId: string;
+  normalizedMessages: MessageRecord[];
+  speakers: string[];
+  discordTarget?: {
+    speakerId: string;
+    speakerName: string;
+    threadId: string;
+  } | null;
+  profile: RelationalProfile;
+  persona: PersonaCard;
+  avatar: AvatarProfile;
+  avatarModel: string;
+  createdAt: string;
 };
 
 export type ApiErrorPayload = {

@@ -62,6 +62,34 @@ OpenClaw should be treated as the operating shell around YaYa, not as YaYa's cor
 - The YaYa backend handles MiniMax API calls, relational analysis, persona generation, memory, and realtime dialogue logic.
 - The frontend or OpenClaw layer should forward requests to the YaYa backend instead of calling MiniMax through an OpenClaw provider path.
 
+## Import Tooling
+
+YaYa now supports the output formats produced by these upstream tools in the history-import layer:
+
+- [`DiscordChatExporter`](https://github.com/Tyrrrz/DiscordChatExporter): `Json`, `Csv`, `PlainText`
+- [`WeChatHistory`](https://github.com/cxun/WeChatHistory): SQLite history database files (`.db`, `.sqlite`, `.sqlite3`)
+
+Important boundary:
+
+- Historical exports are imported into YaYa first.
+- OpenClaw is reserved for Discord realtime relay and execution shell work.
+- WeChat remains a history source, not a realtime channel.
+
+Examples:
+
+- DiscordChatExporter JSON/CSV can be pasted, uploaded, or normalized from a local file path.
+- WeChatHistory SQLite databases are normalized through the backend file-import endpoint:
+  - `PUT /api/import`
+  - body example:
+
+```json
+{
+  "source": "wechat",
+  "filePath": "C:\\\\path\\\\to\\\\wechat\\\\MM.sqlite",
+  "contactName": "Mom"
+}
+```
+
 ## Environment Setup
 
 Web app:
@@ -80,8 +108,14 @@ YaYa backend:
 
 Local run order:
 
+- `npm run dev:agent`
 - `npm run dev:backend`
 - `npm run dev:web`
+
+Local privileged agent:
+
+- the local agent is the future OpenClaw-style permission layer for reading local export folders and WeChatHistory databases
+- see [Local Agent Architecture](C:\Users\12392\Desktop\YaYa\docs\local-agent-architecture.md)
 
 ## Deployment
 

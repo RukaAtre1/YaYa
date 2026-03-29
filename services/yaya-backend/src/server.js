@@ -8,10 +8,17 @@ import { runDialogue } from "./services/chat-service.js";
 import { getConfig } from "./services/config.js";
 import { resolveExpressionState } from "./services/expression-service.js";
 import { synthesizeGeminiSpeech } from "./services/gemini-speech-service.js";
+import { normalizeImportFile } from "./services/import-file-service.js";
+import { getImportCapabilities, normalizeImportPayload } from "./services/import-normalizer.js";
 import { normalizeError, ServiceError } from "./services/errors.js";
 import { summarizeMemory } from "./services/memory-service.js";
 import { getModelManifest } from "./services/minimax-client.js";
 import { compilePersona } from "./services/persona-service.js";
+import {
+  getLatestGeneratedSession,
+  getSessionStoreStatus,
+  saveGeneratedSession
+} from "./services/session-store.js";
 
 const app = express();
 const config = getConfig();
@@ -45,15 +52,54 @@ app.get("/health", (_request, response) => {
     ok: true,
     service: "yaya-backend",
     models: getModelManifest(),
-    openClawSecretConfigured: Boolean(config.openClawSharedSecret)
+    openClawSecretConfigured: Boolean(config.openClawSharedSecret),
+    storage: getSessionStoreStatus()
   });
 });
 
 app.get("/v1/import", (_request, response) => {
-  response.json({
-    sources: ["wechat", "discord"],
-    rows: sampleMessages
-  });
+  response.json(getImportCapabilities());
+});
+
+app.post("/v1/import/normalize", (request, response, next) => {
+  try {
+    response.json(normalizeImportPayload(request.body ?? {}));
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/v1/import/file", async (request, response, next) => {
+  try {
+    response.json(await normalizeImportFile(request.body ?? {}));
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/v1/sessions", (request, response, next) => {
+  try {
+    response.json(saveGeneratedSession(request.body ?? {}));
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/v1/sessions/latest", (_request, response, next) => {
+  try {
+    const session = getLatestGeneratedSession();
+
+    if (!session) {
+      throw new ServiceError("No generated session has been saved yet.", {
+        status: 404,
+        code: "session_not_found"
+      });
+    }
+
+    response.json(session);
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.post("/v1/analysis", async (request, response, next) => {
