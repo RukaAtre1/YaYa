@@ -120,6 +120,24 @@ export type AgentSkill = {
   description: string;
 };
 
+export type ProactiveRoutine = {
+  id: string;
+  label: string;
+  kind: "study" | "water" | "sleep";
+  enabled: boolean;
+  hour?: number;
+  minute?: number;
+  intervalMinutes?: number;
+  startHour?: number;
+  endHour?: number;
+};
+
+export type ProactiveState = {
+  timezone: string;
+  routines: ProactiveRoutine[];
+  lastTriggeredAtByRoutine: Record<string, string>;
+};
+
 export type AvatarProfile = {
   visualPrompt: string;
   moodStates: string[];
@@ -148,6 +166,13 @@ export type ChatReply = {
   actionIntent?: string | null;
   memorySummary?: string;
   activeSkills?: AgentSkill[];
+};
+
+export type ProactiveCheckResult = {
+  triggered: boolean;
+  routineId?: string;
+  reply?: ChatReply;
+  proactiveState?: ProactiveState;
 };
 
 export type SpeechSynthesisResult = {
@@ -246,6 +271,7 @@ export type GeneratedVirtualHumanSession = {
   memorySummary?: string;
   activeSkills?: AgentSkill[];
   liveMessages?: ChatMessage[];
+  proactiveState?: ProactiveState;
   createdAt: string;
 };
 

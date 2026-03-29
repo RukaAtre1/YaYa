@@ -10,6 +10,7 @@ import type {
   ChatReply,
   ExpressionState,
   GeneratedVirtualHumanSession,
+  ProactiveCheckResult,
   SpeechSynthesisResult,
   VisualFrame
 } from "@/types/yaya";
@@ -164,6 +165,92 @@ export function ChatPlayground() {
         // Keep the lightweight fallback portrait when the image layer is unavailable.
       });
   }, [sessionBundle]);
+
+  useEffect(() => {
+    if (!sessionBundle) {
+      return;
+    }
+
+    let cancelled = false;
+
+    const runProactiveCheck = async () => {
+      try {
+        const response = await fetch("/api/proactive", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            session: sessionBundle,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            nowIso: new Date().toISOString()
+          })
+        });
+        const payload = (await response.json()) as ProactiveCheckResult | ApiErrorPayload;
+
+        if (!response.ok || cancelled) {
+          return;
+        }
+
+        const proactive = payload as ProactiveCheckResult;
+
+        if (!proactive.triggered || !proactive.reply) {
+          if (proactive.proactiveState) {
+            setSessionBundle((current) =>
+              current
+                ? {
+                    ...current,
+                    proactiveState: proactive.proactiveState
+                  }
+                : current
+            );
+          }
+          return;
+        }
+
+        const proactiveReply = proactive.reply;
+
+        setLastEmotionTag(proactiveReply.emotionTag ?? "");
+        setSessionBundle((current) => {
+          if (!current) {
+            return current;
+          }
+
+          const nextBundle: GeneratedVirtualHumanSession = {
+            ...current,
+            proactiveState: proactive.proactiveState ?? current.proactiveState,
+            memorySummary: proactiveReply.memorySummary ?? current.memorySummary,
+            activeSkills: proactiveReply.activeSkills ?? current.activeSkills,
+            liveMessages: [...messages, proactiveReply.message]
+          };
+
+          window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(nextBundle));
+          void fetch("/api/session", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(nextBundle)
+          }).catch(() => {});
+
+          return nextBundle;
+        });
+        setMessages((current) => [...current, proactiveReply.message]);
+      } catch {
+        // Proactive checks should stay silent when unavailable.
+      }
+    };
+
+    void runProactiveCheck();
+    const timer = window.setInterval(() => {
+      void runProactiveCheck();
+    }, 60000);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, [messages, sessionBundle]);
 
   const submit = () => {
     if (!sessionBundle) {

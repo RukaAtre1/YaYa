@@ -46,6 +46,7 @@ function ensureDatabase() {
   ensureColumn(database, "generated_sessions", "memory_summary", "TEXT");
   ensureColumn(database, "generated_sessions", "active_skills_json", "TEXT");
   ensureColumn(database, "generated_sessions", "live_messages_json", "TEXT");
+  ensureColumn(database, "generated_sessions", "proactive_state_json", "TEXT");
   return database;
 }
 
@@ -70,6 +71,7 @@ function mapRowToSession(row) {
     memorySummary: row.memory_summary ?? "",
     activeSkills: row.active_skills_json ? JSON.parse(row.active_skills_json) : [],
     liveMessages: row.live_messages_json ? JSON.parse(row.live_messages_json) : [],
+    proactiveState: row.proactive_state_json ? JSON.parse(row.proactive_state_json) : null,
     createdAt: row.created_at
   };
 }
@@ -88,10 +90,10 @@ export function saveGeneratedSession(input) {
         id, source, import_format, thread_id, source_text,
         normalized_messages_json, speakers_json, profile_json,
         persona_json, avatar_json, avatar_model, discord_target_json,
-        memory_summary, active_skills_json, live_messages_json, created_at, updated_at
+        memory_summary, active_skills_json, live_messages_json, proactive_state_json, created_at, updated_at
       ) VALUES (
         ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
       )
       ON CONFLICT(id) DO UPDATE SET
         source = excluded.source,
@@ -108,6 +110,7 @@ export function saveGeneratedSession(input) {
         memory_summary = excluded.memory_summary,
         active_skills_json = excluded.active_skills_json,
         live_messages_json = excluded.live_messages_json,
+        proactive_state_json = excluded.proactive_state_json,
         updated_at = excluded.updated_at
     `);
 
@@ -127,6 +130,7 @@ export function saveGeneratedSession(input) {
       input.memorySummary ?? "",
       JSON.stringify(input.activeSkills ?? []),
       JSON.stringify(input.liveMessages ?? []),
+      JSON.stringify(input.proactiveState ?? null),
       input.createdAt || now,
       now
     );

@@ -5,7 +5,7 @@ import { fetchPersona, toApiErrorResponse } from "@/lib/yaya-backend";
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as { profile?: typeof sampleProfile };
-    const persona = await fetchPersona(body.profile ?? sampleProfile);
+    const persona = await fetchPersona(body.profile ?? sampleProfile, true);
 
     return NextResponse.json(persona);
   } catch (error) {

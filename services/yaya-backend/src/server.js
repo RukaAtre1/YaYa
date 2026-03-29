@@ -15,6 +15,7 @@ import { normalizeError, ServiceError } from "./services/errors.js";
 import { summarizeMemory } from "./services/memory-service.js";
 import { getModelManifest } from "./services/minimax-client.js";
 import { compilePersona } from "./services/persona-service.js";
+import { checkProactiveNudge } from "./services/proactive-service.js";
 import {
   getGeneratedSessionById,
   getLatestGeneratedSession,
@@ -183,6 +184,19 @@ app.post("/v1/ambience", async (request, response, next) => {
 app.post("/v1/visual", async (request, response, next) => {
   try {
     const payload = await generateGeminiVisualFrame(request.body ?? {});
+    response.json(payload);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/v1/proactive/check", async (request, response, next) => {
+  try {
+    const payload = await checkProactiveNudge({
+      session: request.body?.session ?? null,
+      timezone: request.body?.timezone ?? "America/Los_Angeles",
+      nowIso: request.body?.nowIso ?? new Date().toISOString()
+    });
     response.json(payload);
   } catch (error) {
     next(error);

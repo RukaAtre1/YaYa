@@ -1,5 +1,15 @@
 export const SUPERPOWER_SKILLS = [
   {
+    id: "study_coach",
+    label: "Study coach",
+    description: "Turn vague study goals into focused sprints, review blocks, and next actions."
+  },
+  {
+    id: "resource_hunter",
+    label: "Resource hunter",
+    description: "Figure out what to search for, what material to read, and how to learn faster."
+  },
+  {
     id: "hackathon_copilot",
     label: "Hackathon copilot",
     description: "Break ideas into shippable tasks, unblock implementation, and keep momentum."
@@ -18,6 +28,11 @@ export const SUPERPOWER_SKILLS = [
     id: "accountability_friend",
     label: "Accountability friend",
     description: "Follow up on deadlines, meals, sleep, and promises without sounding robotic."
+  },
+  {
+    id: "routine_caregiver",
+    label: "Routine caregiver",
+    description: "Proactively remind the user to drink water, study, rest, and sleep on time."
   },
   {
     id: "discord_relay",

@@ -19,6 +19,7 @@ import type {
   LocalAgentScanResult,
   OpenClawDiscordStatus,
   PersonaCard,
+  ProactiveCheckResult,
   RelationalProfile,
   VisualFrame,
   SpeechSynthesisResult
@@ -46,7 +47,18 @@ export class BackendProxyError extends Error {
   }
 }
 
-async function safeJsonFetch<T>(path: string, init: RequestInit, fallback?: T): Promise<T> {
+async function safeJsonFetch<T>(
+  path: string,
+  init: RequestInit,
+  fallback?: T,
+  timeoutMs?: number
+): Promise<T> {
+  const controller = new AbortController();
+  const timeout =
+    typeof timeoutMs === "number" && timeoutMs > 0
+      ? setTimeout(() => controller.abort(), timeoutMs)
+      : null;
+
   try {
     const response = await fetch(`${getBackendUrl()}${path}`, {
       ...init,
@@ -54,7 +66,8 @@ async function safeJsonFetch<T>(path: string, init: RequestInit, fallback?: T): 
         "Content-Type": "application/json",
         ...(init.headers ?? {})
       },
-      cache: "no-store"
+      cache: "no-store",
+      signal: controller.signal
     });
 
     if (!response.ok) {
@@ -84,11 +97,22 @@ async function safeJsonFetch<T>(path: string, init: RequestInit, fallback?: T): 
       throw error;
     }
 
+    const details =
+      error instanceof Error && error.name === "AbortError"
+        ? "The backend request timed out."
+        : error instanceof Error
+          ? error.message
+          : String(error);
+
     throw new BackendProxyError("Failed to reach the YaYa backend service.", {
       code: "backend_unreachable",
       status: 502,
-      details: error instanceof Error ? error.message : String(error)
+      details
     });
+  } finally {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
   }
 }
 
@@ -410,7 +434,8 @@ export async function fetchAnalysis(transcript: string, allowFallback = false) {
       method: "POST",
       body: JSON.stringify({ transcript })
     },
-    allowFallback ? sampleProfile : undefined
+    allowFallback ? sampleProfile : undefined,
+    allowFallback ? 8000 : undefined
   );
 }
 
@@ -421,7 +446,8 @@ export async function fetchPersona(profile: RelationalProfile, allowFallback = f
       method: "POST",
       body: JSON.stringify({ profile })
     },
-    allowFallback ? samplePersona : undefined
+    allowFallback ? samplePersona : undefined,
+    allowFallback ? 8000 : undefined
   );
 }
 
@@ -489,6 +515,17 @@ export async function fetchVisualFrame(input: {
   latestAssistantMessage?: string;
 }) {
   return safeJsonFetch<VisualFrame>("/v1/visual", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+}
+
+export async function checkProactiveState(input: {
+  session: unknown;
+  timezone?: string;
+  nowIso?: string;
+}) {
+  return safeJsonFetch<ProactiveCheckResult>("/v1/proactive/check", {
     method: "POST",
     body: JSON.stringify(input)
   });

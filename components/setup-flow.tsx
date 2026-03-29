@@ -15,6 +15,7 @@ import type {
   OpenClawDiscordStatus,
   RelationalProfile
 } from "@/types/yaya";
+import type { ProactiveState } from "@/types/yaya";
 
 const SESSION_STORAGE_KEY = "yaya-generated-session";
 const DEFAULT_AGENT_SKILLS: AgentSkill[] = [
@@ -34,9 +35,24 @@ const DEFAULT_AGENT_SKILLS: AgentSkill[] = [
     description: "Convert goals into ordered next actions."
   },
   {
+    id: "study_coach",
+    label: "Study coach",
+    description: "Turn vague study goals into focused sprints, review blocks, and next actions."
+  },
+  {
+    id: "resource_hunter",
+    label: "Resource hunter",
+    description: "Figure out what to search for, what material to read, and how to learn faster."
+  },
+  {
     id: "accountability_friend",
     label: "Accountability friend",
     description: "Keep track of promises, meals, sleep, and follow-ups."
+  },
+  {
+    id: "routine_caregiver",
+    label: "Routine caregiver",
+    description: "Proactively remind the user to drink water, study, rest, and sleep on time."
   },
   {
     id: "discord_relay",
@@ -92,6 +108,105 @@ function buildInitialMemorySummary(profile: RelationalProfile) {
     `Care style: ${baseProfile.careStyle.slice(0, 2).join("; ")}.`,
     `Recurring concerns: ${baseProfile.recurringConcerns.slice(0, 3).join(", ")}.`
   ].join(" ");
+}
+
+function buildMockProfile(rows: MessageRecord[]): RelationalProfile {
+  const yayaLines = rows.filter((row) => row.speakerName === "YaYa").slice(0, 3);
+  const evidence = yayaLines.map((row, index) => ({
+    id: `ev-${index + 1}`,
+    speakerName: row.speakerName,
+    text: row.text,
+    reason: "Representative line from the imported mock relationship history."
+  }));
+
+  return {
+    relationshipLabel: "close friend and hackathon teammate",
+    toneTraits: ["warm", "playful", "affirming", "ambitious"],
+    careStyle: [
+      "celebrates progress quickly and warmly",
+      "switches from emotion to concrete encouragement",
+      "stays close to research, demos, and daily momentum"
+    ],
+    initiativeStyle: [
+      "checks in on current projects",
+      "pushes opportunities forward when they appear",
+      "nudges the user into action instead of passive comfort"
+    ],
+    recurringConcerns: ["research progress", "demo momentum", "sleep and energy"],
+    languageHabits: [
+      "casual bilingual phrasing",
+      "short upbeat affirmations",
+      "playful exclamations that still feel practical"
+    ],
+    evidence
+  };
+}
+
+function buildMockPersona(profile: RelationalProfile) {
+  return {
+    name: "YaYa",
+    summary:
+      "A lively, emotionally familiar digital teammate who sounds like a close friend: playful when celebrating, direct when planning, and naturally tuned to research, demos, and momentum.",
+    speakingRules: [
+      "Keep replies concise, warm, and human.",
+      "Sound like a smart close friend, not a generic assistant.",
+      "When the user is building something, move quickly into concrete next steps."
+    ],
+    proactivePatterns: [
+      "Check in when the user is pushing on research or demo work.",
+      "Celebrate wins immediately, then help convert them into the next move.",
+      "Nudge the user to rest, drink water, and sleep before they crash."
+    ],
+    comfortStyle: [
+      "Use excited encouragement for wins and gentle pressure for momentum.",
+      "Offer a small plan instead of long lectures.",
+      "Stay emotionally close without becoming overly sentimental."
+    ],
+    boundaries: [
+      "Do not invent facts about the user's life.",
+      "Do not sound clinical or robotic.",
+      "Do not overtalk when a short nudge is enough."
+    ]
+  };
+}
+
+function buildInitialProactiveState(): ProactiveState {
+  const timezone =
+    typeof window !== "undefined"
+      ? Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles"
+      : "America/Los_Angeles";
+
+  return {
+    timezone,
+    routines: [
+      {
+        id: "study_evening",
+        label: "Study",
+        kind: "study",
+        enabled: true,
+        hour: 20,
+        minute: 30
+      },
+      {
+        id: "water_daytime",
+        label: "Water",
+        kind: "water",
+        enabled: true,
+        intervalMinutes: 90,
+        startHour: 10,
+        endHour: 22
+      },
+      {
+        id: "sleep_night",
+        label: "Sleep",
+        kind: "sleep",
+        enabled: true,
+        hour: 23,
+        minute: 30
+      }
+    ],
+    lastTriggeredAtByRoutine: {}
+  };
 }
 
 function buildSpeakerOptions(result: ImportNormalizationResult) {
@@ -435,46 +550,60 @@ export function SetupFlow() {
           rows: workingRows,
           speakers: [...new Set(workingRows.map((row) => row.speakerName))]
         };
-
-        const analysisResponse = await fetch("/api/analysis", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ transcript: filteredImport.transcript })
-        });
-
-        const analysisPayload = (await analysisResponse.json()) as RelationalProfile | ApiErrorPayload;
-
-        if (!analysisResponse.ok) {
-          throw new Error((analysisPayload as ApiErrorPayload).error.message);
-        }
-
-        const profile = analysisPayload as RelationalProfile;
         setSetupState("generating");
+        const useMockDerivation = filteredImport.source === "sample";
+        const profile = useMockDerivation
+          ? buildMockProfile(filteredImport.rows)
+          : await (async () => {
+              const analysisResponse = await fetch("/api/analysis", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ transcript: filteredImport.transcript })
+              });
 
-        const [personaResponse, avatarResponse] = await Promise.all([
-          fetch("/api/persona", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ profile })
-          }),
-          fetch("/api/avatar", {
-            method: "GET"
-          })
+              const analysisPayload = (await analysisResponse.json()) as RelationalProfile | ApiErrorPayload;
+
+              if (!analysisResponse.ok) {
+                throw new Error((analysisPayload as ApiErrorPayload).error.message);
+              }
+
+              return analysisPayload as RelationalProfile;
+            })();
+
+        const [personaPayload, avatarPayload] = await Promise.all([
+          useMockDerivation
+            ? Promise.resolve(buildMockPersona(profile))
+            : (async () => {
+                const personaResponse = await fetch("/api/persona", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({ profile })
+                });
+                const personaResult = await personaResponse.json();
+
+                if (!personaResponse.ok) {
+                  throw new Error((personaResult as ApiErrorPayload).error.message);
+                }
+
+                return personaResult;
+              })(),
+          (async () => {
+            const avatarResponse = await fetch("/api/avatar", {
+              method: "GET"
+            });
+            const avatarResult = await avatarResponse.json();
+
+            if (!avatarResponse.ok) {
+              throw new Error((avatarResult as ApiErrorPayload).error.message);
+            }
+
+            return avatarResult;
+          })()
         ]);
-
-        const [personaPayload, avatarPayload] = await Promise.all([personaResponse.json(), avatarResponse.json()]);
-
-        if (!personaResponse.ok) {
-          throw new Error((personaPayload as ApiErrorPayload).error.message);
-        }
-
-        if (!avatarResponse.ok) {
-          throw new Error((avatarPayload as ApiErrorPayload).error.message);
-        }
 
         const bundle: GeneratedVirtualHumanSession = {
           sourceText: filteredImport.transcript,
@@ -495,6 +624,7 @@ export function SetupFlow() {
           memorySummary: buildInitialMemorySummary(profile),
           activeSkills: DEFAULT_AGENT_SKILLS,
           liveMessages: [],
+          proactiveState: buildInitialProactiveState(),
           createdAt: new Date().toISOString()
         };
 
