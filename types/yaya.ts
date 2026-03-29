@@ -159,6 +159,49 @@ export type ChatMessage = {
   turnType?: ChatTurnType;
 };
 
+export type ActionItemStatus = "active" | "scheduled" | "completed" | "delivered" | "failed";
+
+export type ActionItemKind = "plan" | "research" | "draft" | "reminder" | "relay";
+
+export type ActionItemDelivery = {
+  channel: string;
+  targetId: string;
+  status: "pending" | "sent" | "failed";
+  deliveredAt?: string;
+  error?: string;
+};
+
+export type ChannelContext = {
+  channel: string;
+  targetId: string;
+  peerUserId?: string;
+  accountId?: string;
+  conversationId?: string;
+  sessionKey?: string;
+  lastInboundAt: string;
+};
+
+export type ActionItem = {
+  id: string;
+  intent: string;
+  kind: ActionItemKind;
+  title: string;
+  summary: string;
+  status: ActionItemStatus;
+  createdAt: string;
+  dueAt?: string;
+  checklist?: string[];
+  queries?: string[];
+  draftText?: string;
+  followUpText?: string;
+  delivery?: ActionItemDelivery;
+};
+
+export type ActionState = {
+  items: ActionItem[];
+  channelContext?: ChannelContext | null;
+};
+
 export type ChatReply = {
   message: ChatMessage;
   rationale: string[];
@@ -166,6 +209,8 @@ export type ChatReply = {
   actionIntent?: string | null;
   memorySummary?: string;
   activeSkills?: AgentSkill[];
+  actionItems?: ActionItem[];
+  actionState?: ActionState;
 };
 
 export type ProactiveCheckResult = {
@@ -173,6 +218,7 @@ export type ProactiveCheckResult = {
   routineId?: string;
   reply?: ChatReply;
   proactiveState?: ProactiveState;
+  actionState?: ActionState;
 };
 
 export type SpeechSynthesisResult = {
@@ -272,6 +318,7 @@ export type GeneratedVirtualHumanSession = {
   activeSkills?: AgentSkill[];
   liveMessages?: ChatMessage[];
   proactiveState?: ProactiveState;
+  actionState?: ActionState;
   createdAt: string;
 };
 

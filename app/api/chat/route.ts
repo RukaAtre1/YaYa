@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
 import { samplePersona } from "@/lib/demo-data";
 import { fetchChatReply, toApiErrorResponse } from "@/lib/yaya-backend";
-import type { AgentSkill, ChatMessage, PersonaCard, RelationalProfile } from "@/types/yaya";
+import type {
+  AgentSkill,
+  ChatMessage,
+  GeneratedVirtualHumanSession,
+  PersonaCard,
+  RelationalProfile
+} from "@/types/yaya";
 
 type ChatRequest = {
   userMessage?: string;
   history?: ChatMessage[];
+  session?: GeneratedVirtualHumanSession | null;
   persona?: PersonaCard;
   profile?: RelationalProfile;
   memorySummary?: string;
@@ -19,6 +26,7 @@ export async function POST(request: Request) {
     const reply = await fetchChatReply({
       userMessage: body.userMessage ?? "",
       history: body.history ?? [],
+      session: body.session ?? null,
       persona: body.persona ?? samplePersona,
       profile: body.profile,
       memorySummary:

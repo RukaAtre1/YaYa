@@ -1,6 +1,13 @@
 import { buildSampleReply } from "../sample-data.js";
-import { generateText } from "./minimax-client.js";
+import {
+  applyActionIntent,
+  ensureActionState,
+  getDueScheduledActionItem,
+  updateActionItem
+} from "./action-execution-service.js";
 import { extractJsonObject } from "./errors.js";
+import { generateText } from "./minimax-client.js";
+import { canDeliverToChannel, sendOpenClawMessage } from "./openclaw-shell-service.js";
 
 function defaultRoutines() {
   return [
@@ -102,6 +109,7 @@ function buildProactivePrompt({ persona, memorySummary, routine, localParts }) {
     systemPrompt: [
       "You are YaYa, a proactive relationship-native agent.",
       "You sometimes reach out first.",
+      "You are allowed to lead, nudge, and ask for a concrete status update.",
       "Return only valid JSON and no markdown fences."
     ].join("\n"),
     userPrompt: [
@@ -126,6 +134,7 @@ function buildProactivePrompt({ persona, memorySummary, routine, localParts }) {
       "- Keep it under 80 words.",
       "- Sound like a real person who knows the user.",
       "- If the routine is study, suggest a small study plan or first step.",
+      "- Ask for a concrete report-back when that would improve follow-through.",
       '- Use actionIntent for practical nudges like "study_plan", "drink_water", or "sleep_nudge".'
     ].join("\n")
   };
@@ -138,7 +147,7 @@ function buildFallbackProactiveReply(routine) {
       message: {
         id: `proactive-${Date.now()}`,
         role: "assistant",
-        text: "Study time. Give me one topic and I’ll turn it into a 25-minute sprint with a tiny checklist.",
+        text: "Study time. Give me one topic and I'll turn it into a 25-minute sprint with a tiny checklist.",
         timestamp: new Date().toISOString(),
         turnType: "proactive_check_in"
       },
@@ -166,7 +175,7 @@ function buildFallbackProactiveReply(routine) {
     message: {
       id: `proactive-${Date.now()}`,
       role: "assistant",
-      text: "It’s getting late. Wrap the one thing that matters, then let yourself sleep earlier tonight.",
+      text: "It's getting late. Wrap the one thing that matters, then let yourself sleep earlier tonight.",
       timestamp: new Date().toISOString(),
       turnType: "reminder"
     },
@@ -174,6 +183,82 @@ function buildFallbackProactiveReply(routine) {
     emotionTag: "concerned_supportive",
     actionIntent: "sleep_nudge"
   };
+}
+
+function buildScheduledReply(item) {
+  return {
+    message: {
+      id: `proactive-${Date.now()}`,
+      role: "assistant",
+      text: item.followUpText ?? item.summary,
+      timestamp: new Date().toISOString(),
+      turnType: "proactive_check_in"
+    },
+    rationale: ["Scheduled follow-up from YaYa", "Keeps plans from dissolving after one good turn"],
+    emotionTag: item.intent === "sleep_nudge" ? "concerned_supportive" : "steady_care",
+    actionIntent: null
+  };
+}
+
+async function deliverExternallyIfPossible({ actionState, actionItem, reply }) {
+  const channelContext = actionState?.channelContext;
+
+  if (!canDeliverToChannel(channelContext) || !reply?.message?.text) {
+    return {
+      delivered: false,
+      actionState
+    };
+  }
+
+  try {
+    await sendOpenClawMessage({
+      channel: channelContext.channel,
+      targetId: channelContext.targetId,
+      accountId: channelContext.accountId,
+      message: reply.message.text,
+      silent: true
+    });
+
+    if (!actionItem?.id) {
+      return {
+        delivered: true,
+        actionState
+      };
+    }
+
+    return {
+      delivered: true,
+      actionState: updateActionItem(actionState, actionItem.id, {
+        status: "delivered",
+        delivery: {
+          channel: channelContext.channel,
+          targetId: channelContext.targetId,
+          status: "sent",
+          deliveredAt: new Date().toISOString()
+        }
+      })
+    };
+  } catch (error) {
+    if (!actionItem?.id) {
+      return {
+        delivered: false,
+        actionState
+      };
+    }
+
+    return {
+      delivered: false,
+      actionState: updateActionItem(actionState, actionItem.id, {
+        status: "failed",
+        delivery: {
+          channel: channelContext.channel,
+          targetId: channelContext.targetId,
+          status: "failed",
+          error: error instanceof Error ? error.message : String(error)
+        }
+      })
+    };
+  }
 }
 
 export function buildDefaultProactiveState(timezone = "America/Los_Angeles") {
@@ -189,6 +274,7 @@ export async function checkProactiveNudge({
   nowIso = new Date().toISOString(),
   timezone = "America/Los_Angeles"
 }) {
+  let actionState = ensureActionState(session);
   const proactiveState = session?.proactiveState ?? buildDefaultProactiveState(timezone);
   const nextState = {
     ...proactiveState,
@@ -199,6 +285,53 @@ export async function checkProactiveNudge({
     lastTriggeredAtByRoutine: { ...(proactiveState.lastTriggeredAtByRoutine ?? {}) }
   };
   const localParts = getLocalParts(nowIso, timezone);
+  const dueActionItem = getDueScheduledActionItem(actionState, nowIso);
+
+  if (dueActionItem) {
+    let reply = buildScheduledReply(dueActionItem);
+
+    actionState = updateActionItem(actionState, dueActionItem.id, {
+      status: "completed"
+    });
+
+    const actionResult = applyActionIntent({
+      session: {
+        ...session,
+        actionState
+      },
+      reply,
+      userMessage: dueActionItem.summary ?? "",
+      nowIso
+    });
+
+    actionState = actionResult.actionState;
+    reply = {
+      ...reply,
+      actionItems: actionResult.actionItems,
+      actionState
+    };
+
+    const deliveryResult = await deliverExternallyIfPossible({
+      actionState,
+      actionItem: dueActionItem,
+      reply
+    });
+
+    actionState = deliveryResult.actionState;
+    reply = {
+      ...reply,
+      actionState
+    };
+
+    return {
+      triggered: true,
+      routineId: dueActionItem.id,
+      reply,
+      proactiveState: nextState,
+      actionState
+    };
+  }
+
   const dueRoutine = nextState.routines.find((routine) =>
     shouldTriggerRoutine(routine, nowIso, localParts, nextState)
   );
@@ -206,7 +339,8 @@ export async function checkProactiveNudge({
   if (!dueRoutine) {
     return {
       triggered: false,
-      proactiveState: nextState
+      proactiveState: nextState,
+      actionState
     };
   }
 
@@ -234,7 +368,7 @@ export async function checkProactiveNudge({
     }
   }
 
-  const reply = {
+  let reply = {
     message: {
       ...fallback.message,
       text: payload?.message?.text ?? fallback.message.text,
@@ -255,10 +389,44 @@ export async function checkProactiveNudge({
 
   nextState.lastTriggeredAtByRoutine[dueRoutine.id] = nowIso;
 
+  const actionResult = applyActionIntent({
+    session: {
+      ...session,
+      actionState
+    },
+    reply,
+    userMessage: dueRoutine.label,
+    nowIso
+  });
+
+  actionState = actionResult.actionState;
+  reply = {
+    ...reply,
+    actionItems: actionResult.actionItems,
+    actionState
+  };
+
+  const latestActionItem =
+    actionResult.actionItems.find((item) => item.status !== "scheduled") ??
+    actionResult.actionItems[0] ??
+    null;
+  const deliveryResult = await deliverExternallyIfPossible({
+    actionState,
+    actionItem: latestActionItem,
+    reply
+  });
+
+  actionState = deliveryResult.actionState;
+  reply = {
+    ...reply,
+    actionState
+  };
+
   return {
     triggered: true,
     routineId: dueRoutine.id,
     reply,
-    proactiveState: nextState
+    proactiveState: nextState,
+    actionState
   };
 }

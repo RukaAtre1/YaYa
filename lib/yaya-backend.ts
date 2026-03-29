@@ -13,6 +13,7 @@ import type {
   ChatMessage,
   DiscordImportTargetListResult,
   ExpressionState,
+  GeneratedVirtualHumanSession,
   ImportFileNormalizationRequest,
   ImportNormalizationRequest,
   ImportNormalizationResult,
@@ -465,6 +466,7 @@ export async function fetchAvatar() {
 export async function fetchChatReply(input: {
   userMessage: string;
   history: ChatMessage[];
+  session?: GeneratedVirtualHumanSession | null;
   persona: PersonaCard;
   profile?: RelationalProfile;
   memorySummary: string;

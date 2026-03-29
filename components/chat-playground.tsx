@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { samplePersona } from "@/lib/demo-data";
 import type {
+  ActionItem,
   AmbienceLoop,
   ApiErrorPayload,
   ChatMessage,
@@ -55,6 +56,30 @@ function buildMemorySummary(bundle: GeneratedVirtualHumanSession) {
   );
 }
 
+function buildSessionIntro(bundle: GeneratedVirtualHumanSession) {
+  if (bundle.source === "sample" || bundle.discordTarget?.speakerName === "Mom") {
+    return "Answer me clearly first: did you eat properly today, and what is the most urgent thing on your plate tonight?";
+  }
+
+  return "I'm here.";
+}
+
+function formatActionMeta(item: ActionItem) {
+  const status = item.status.replace(/_/g, " ");
+
+  if (!item.dueAt) {
+    return status;
+  }
+
+  const dueDate = new Date(item.dueAt);
+
+  if (Number.isNaN(dueDate.getTime())) {
+    return status;
+  }
+
+  return `${status} | ${dueDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+}
+
 export function ChatPlayground() {
   const router = useRouter();
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -86,7 +111,7 @@ export function ChatPlayground() {
               {
                 id: "session-intro",
                 role: "assistant",
-                text: "I'm here.",
+                text: buildSessionIntro(bundle),
                 timestamp: new Date().toISOString(),
                 turnType: "proactive_check_in"
               }
@@ -200,7 +225,8 @@ export function ChatPlayground() {
               current
                 ? {
                     ...current,
-                    proactiveState: proactive.proactiveState
+                    proactiveState: proactive.proactiveState,
+                    actionState: proactive.actionState ?? current.actionState
                   }
                 : current
             );
@@ -221,6 +247,7 @@ export function ChatPlayground() {
             proactiveState: proactive.proactiveState ?? current.proactiveState,
             memorySummary: proactiveReply.memorySummary ?? current.memorySummary,
             activeSkills: proactiveReply.activeSkills ?? current.activeSkills,
+            actionState: proactiveReply.actionState ?? proactive.actionState ?? current.actionState,
             liveMessages: [...messages, proactiveReply.message]
           };
 
@@ -293,6 +320,7 @@ export function ChatPlayground() {
           body: JSON.stringify({
             userMessage: trimmed,
             history: nextHistory,
+            session: sessionBundle,
             persona: sessionBundle.persona,
             profile: sessionBundle.profile,
             memorySummary: buildMemorySummary(sessionBundle),
@@ -314,6 +342,7 @@ export function ChatPlayground() {
           ...sessionBundle,
           memorySummary: reply.memorySummary ?? buildMemorySummary(sessionBundle),
           activeSkills: reply.activeSkills ?? sessionBundle.activeSkills ?? [],
+          actionState: reply.actionState ?? sessionBundle.actionState,
           liveMessages: updatedMessages
         };
         setSessionBundle(nextBundle);
@@ -440,6 +469,10 @@ export function ChatPlayground() {
   const visualStateLabel = runtimeState.expression?.cachedState ?? `${visualMood} idle`;
   const targetLabel = sessionBundle.discordTarget?.speakerName ?? "current target";
   const activeVisual = runtimeState.visual;
+  const visibleActionItems = (sessionBundle.actionState?.items ?? [])
+    .filter((item) => item.status !== "completed")
+    .slice(-3)
+    .reverse();
 
   return (
     <section className="call-stage">
@@ -496,6 +529,35 @@ export function ChatPlayground() {
               </article>
             ))}
           </div>
+
+          {visibleActionItems.length > 0 ? (
+            <div className="action-strip">
+              {visibleActionItems.map((item) => (
+                <article key={item.id} className="action-card">
+                  <div className="action-card-head">
+                    <strong>{item.title}</strong>
+                    <span>{formatActionMeta(item)}</span>
+                  </div>
+                  <p>{item.summary}</p>
+                  {item.checklist?.length ? (
+                    <ul className="action-list">
+                      {item.checklist.map((entry) => (
+                        <li key={entry}>{entry}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {item.queries?.length ? (
+                    <ul className="action-list">
+                      {item.queries.map((entry) => (
+                        <li key={entry}>{entry}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {item.draftText ? <div className="action-draft">{item.draftText}</div> : null}
+                </article>
+              ))}
+            </div>
+          ) : null}
 
           <div className="call-composer">
             <textarea

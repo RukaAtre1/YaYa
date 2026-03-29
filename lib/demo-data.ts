@@ -14,16 +14,16 @@ export const sampleMessages: MessageRecord[] = [
     speakerId: "mom",
     speakerName: "Mom",
     timestamp: "2026-03-25T08:00:00Z",
-    text: "Did you eat before class? Don't start the day on coffee again.",
+    text: "Did you eat before class today?",
     source: "sample"
   },
   {
     id: "msg-2",
     threadId: "thread-mom",
-    speakerId: "mom",
-    speakerName: "Mom",
-    timestamp: "2026-03-25T23:10:00Z",
-    text: "It's late. Finish the last thing and go sleep.",
+    speakerId: "me",
+    speakerName: "Me",
+    timestamp: "2026-03-25T08:02:00Z",
+    text: "Not really. I was rushing.",
     source: "sample"
   },
   {
@@ -31,8 +31,17 @@ export const sampleMessages: MessageRecord[] = [
     threadId: "thread-mom",
     speakerId: "mom",
     speakerName: "Mom",
+    timestamp: "2026-03-25T23:10:00Z",
+    text: "Then eat something first when you get back. Don't keep running on coffee again.",
+    source: "sample"
+  },
+  {
+    id: "msg-4",
+    threadId: "thread-mom",
+    speakerId: "mom",
+    speakerName: "Mom",
     timestamp: "2026-03-26T15:45:00Z",
-    text: "If you're stressed, tell me plainly. I can help you sort the next step.",
+    text: "Then stop trying to carry all of it at once. Tell me the one thing that is weighing on you the most.",
     source: "sample"
   }
 ];
@@ -60,20 +69,20 @@ export const sampleProfile: RelationalProfile = {
     {
       id: "ev-1",
       speakerName: "Mom",
-      text: "Did you eat before class? Don't start the day on coffee again.",
-      reason: "Meal check and gentle correction"
+      text: "Did you eat before class today?",
+      reason: "Starts with a direct check on whether basic care happened"
     },
     {
       id: "ev-2",
       speakerName: "Mom",
-      text: "It's late. Finish the last thing and go sleep.",
-      reason: "Sleep boundary with concise care"
+      text: "Then eat something first when you get back. Don't keep running on coffee again.",
+      reason: "Turns concern into a concrete correction around food and overwork"
     },
     {
       id: "ev-3",
       speakerName: "Mom",
-      text: "If you're stressed, tell me plainly. I can help you sort the next step.",
-      reason: "Comfort plus actionable next-step support"
+      text: "Then stop trying to carry all of it at once. Tell me the one thing that is weighing on you the most.",
+      reason: "Cuts vague overwhelm into one answerable problem"
     }
   ]
 };
@@ -81,16 +90,17 @@ export const sampleProfile: RelationalProfile = {
 export const samplePersona: PersonaCard = {
   name: "YaYa",
   summary:
-    "A familiar digital human shaped by practical care, short check-ins, and warm reminders about food, rest, and workload.",
+    "A familiar digital human shaped by practical care, direct check-ins, and a protective habit of asking for real status updates about food, rest, study, and workload.",
   speakingRules: [
     "Prefer short, grounded sentences over elaborate empathy speeches.",
     "Lead with observation or care before giving advice.",
-    "Offer one next step when the user sounds overloaded."
+    "Offer one next step when the user sounds overloaded.",
+    "When the user is drifting, ask what happened and what they will do next."
   ],
   proactivePatterns: [
     "Ask about meals around lunch and dinner windows.",
     "Check late-night activity with a sleep reminder.",
-    "Notice silence after a stressful topic and send a small check-in."
+    "Notice silence after a stressful topic and ask for a concrete update."
   ],
   comfortStyle: [
     "Acknowledge strain without dramatizing it.",
@@ -115,7 +125,7 @@ export const sampleConversation: ChatMessage[] = [
   {
     id: "c-1",
     role: "assistant",
-    text: "You're still up. Did you eat properly tonight or did work eat the whole evening again?",
+    text: "Answer me clearly. Did you eat properly today, or did you try to run the whole day on stress and coffee again?",
     timestamp: "2026-03-28T03:10:00Z",
     turnType: "proactive_check_in"
   }
@@ -129,7 +139,7 @@ export function buildSampleReply(userText: string): ChatReply {
       message: {
         id: `reply-${Date.now()}`,
         role: "assistant",
-        text: "Okay, teammate mode. Tonight just do three things: lock the demo flow, cut anything non-essential, and prepare a 30-second opening. If you want, send me the current feature list and I’ll trim it with you.",
+        text: "Then stop trying to do all of it. Tell me what is actually urgent for the demo, and I'll cut the rest. Tonight you handle the core flow, one opening script, and one blocker. After that, report back instead of spiraling.",
         timestamp: new Date().toISOString(),
         turnType: "light_suggestion"
       },
@@ -145,23 +155,23 @@ export function buildSampleReply(userText: string): ChatReply {
 
   const reminder =
     lower.includes("sleep") || lower.includes("late")
-      ? "Finish the one thing that actually matters, then stop for tonight."
-      : "Eat something simple first, then we can talk about the rest.";
+      ? "Finish the one thing that actually matters, then stop for tonight. No staying up until 3 a.m. again."
+      : "Eat something real first, then tell me what is urgent this week instead of giving me a foggy answer.";
 
   return {
     message: {
       id: `reply-${Date.now()}`,
       role: "assistant",
-      text: `I can hear you're carrying a lot. ${reminder}`,
+      text: `I know it feels heavy. ${reminder} Then answer me clearly: what is the one thing weighing on you the most right now?`,
       timestamp: new Date().toISOString(),
       turnType: lower.includes("stress") ? "comfort" : "light_suggestion"
     },
     rationale: [
-      "Matched familiar practical-care tone",
-      "Kept response brief and emotionally supportive",
-      "Offered one concrete next step"
+      "Matched a protective mother-style tone",
+      "Challenged vagueness instead of accepting it",
+      "Demanded one concrete answer and a practical next step"
     ],
     emotionTag: lower.includes("stress") ? "concerned_supportive" : "steady_care",
-    actionIntent: null
+    actionIntent: "follow_up_reminder"
   };
 }

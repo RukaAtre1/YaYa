@@ -7,6 +7,7 @@ import type { ImportNormalizationResult } from "@/types/yaya";
 const workspaceRoot = process.cwd();
 const mockHistoryPath = path.join(workspaceRoot, "YaYa_chathistory_mock.md");
 const generatedTranscriptPath = path.join(workspaceRoot, "exports", "mock", "yaya-mock-transcript.txt");
+const explicitSpeakerPattern = /^([^:]{1,40}):\s*(.+)$/;
 
 function buildMockTranscript(rawText: string) {
   const lines = rawText
@@ -15,7 +16,18 @@ function buildMockTranscript(rawText: string) {
     .filter(Boolean);
 
   const transcriptLines = lines.map((line, index) => {
-    const speaker = index % 2 === 0 ? "Harley" : "YaYa";
+    const explicitMatch = line.match(explicitSpeakerPattern);
+
+    if (explicitMatch) {
+      const speakerName = explicitMatch[1]?.trim();
+      const text = explicitMatch[2]?.trim();
+
+      if (speakerName && text) {
+        return `${speakerName}: ${text}`;
+      }
+    }
+
+    const speaker = index % 2 === 0 ? "Mom" : "Me";
     return `${speaker}: ${line}`;
   });
 
@@ -71,6 +83,11 @@ export async function GET() {
   try {
     const rawText = await fs.readFile(mockHistoryPath, "utf8");
     const transcript = buildMockTranscript(rawText);
+    const preservedExplicitSpeakers = rawText
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .some((line) => explicitSpeakerPattern.test(line));
 
     await fs.mkdir(path.dirname(generatedTranscriptPath), { recursive: true });
     await fs.writeFile(generatedTranscriptPath, transcript, "utf8");
@@ -80,7 +97,9 @@ export async function GET() {
     return NextResponse.json({
       ...(normalized as ImportNormalizationResult),
       warnings: [
-        "This mock import was reconstructed by alternating lines between Harley and YaYa.",
+        preservedExplicitSpeakers
+          ? "This mock import preserved explicit speaker labels from the Mom / Me transcript."
+          : "This mock import reconstructed speakers by alternating lines between Mom and Me.",
         ...(normalized.warnings ?? [])
       ],
       mockSourcePath: mockHistoryPath,

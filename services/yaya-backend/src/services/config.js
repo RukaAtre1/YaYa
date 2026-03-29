@@ -59,6 +59,7 @@ export function getConfig() {
     geminiDynamicImageModel,
     lyriaModel: process.env.LYRIA_MODEL ?? "Lyria 3 Clip",
     openClawSharedSecret: process.env.OPENCLAW_SHARED_SECRET ?? "",
+    localAgentUrl: process.env.YAYA_LOCAL_AGENT_URL ?? "http://127.0.0.1:8791",
     allowMockFallback: String(process.env.YAYA_ALLOW_MOCK_FALLBACK ?? "false").toLowerCase() === "true",
     sqlitePath:
       process.env.YAYA_SQLITE_PATH ?? path.join(workspaceRoot, "data", "yaya.sqlite")

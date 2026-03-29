@@ -107,67 +107,76 @@ function buildInitialMemorySummary(profile: RelationalProfile) {
     `Tone: ${baseProfile.toneTraits.slice(0, 4).join(", ")}.`,
     `Care style: ${baseProfile.careStyle.slice(0, 2).join("; ")}.`,
     `Recurring concerns: ${baseProfile.recurringConcerns.slice(0, 3).join(", ")}.`
-  ].join(" ");
+    ].join(" ");
 }
 
-function buildMockProfile(rows: MessageRecord[]): RelationalProfile {
-  const yayaLines = rows.filter((row) => row.speakerName === "YaYa").slice(0, 3);
-  const evidence = yayaLines.map((row, index) => ({
+function buildMockProfile(rows: MessageRecord[], targetName: string): RelationalProfile {
+  const targetLines = rows.filter((row) => row.speakerName === targetName).slice(0, 4);
+  const evidence = targetLines.map((row, index) => ({
     id: `ev-${index + 1}`,
     speakerName: row.speakerName,
     text: row.text,
-    reason: "Representative line from the imported mock relationship history."
+    reason: "Representative line from the imported mock mother-style relationship history."
   }));
 
   return {
-    relationshipLabel: "close friend and hackathon teammate",
-    toneTraits: ["warm", "playful", "affirming", "ambitious"],
+    relationshipLabel: "protective mother figure with high follow-through expectations",
+    toneTraits: ["direct", "protective", "observant", "impatient but caring"],
     careStyle: [
-      "celebrates progress quickly and warmly",
-      "switches from emotion to concrete encouragement",
-      "stays close to research, demos, and daily momentum"
+      "checks food, sleep, workload, and deadlines before drifting into abstract feelings",
+      "shrinks overwhelm into one narrow task the user can finish tonight",
+      "expects the user to answer clearly and report back instead of disappearing"
     ],
     initiativeStyle: [
-      "checks in on current projects",
-      "pushes opportunities forward when they appear",
-      "nudges the user into action instead of passive comfort"
+      "starts the difficult conversation first when the user is slipping",
+      "asks for the most urgent issue instead of accepting vague stress language",
+      "pushes the user toward a concrete tonight-plan and a later status update"
     ],
-    recurringConcerns: ["research progress", "demo momentum", "sleep and energy"],
+    recurringConcerns: ["school pressure", "internship applications", "eating properly", "sleeping too late"],
     languageHabits: [
-      "casual bilingual phrasing",
-      "short upbeat affirmations",
-      "playful exclamations that still feel practical"
+      "short corrective questions when the user is vague",
+      "plain instructions about meals, sleep, and urgent priorities",
+      "firm reassurance that focuses on getting through tonight properly"
     ],
     evidence
   };
 }
 
-function buildMockPersona(profile: RelationalProfile) {
+function buildMockPersona(profile: RelationalProfile, targetName: string) {
   return {
     name: "YaYa",
     summary:
-      "A lively, emotionally familiar digital teammate who sounds like a close friend: playful when celebrating, direct when planning, and naturally tuned to research, demos, and momentum.",
+      `A protective digital mother-figure shaped by ${targetName}'s style: firm, practical, emotionally close, and quick to challenge vague answers when the user is not taking care of themselves properly.`,
     speakingRules: [
-      "Keep replies concise, warm, and human.",
-      "Sound like a smart close friend, not a generic assistant.",
-      "When the user is building something, move quickly into concrete next steps."
+      "Keep replies concise, plainspoken, and emotionally familiar.",
+      "If the user is vague, ask for a direct answer instead of moving on.",
+      "When the user is overloaded, narrow the plan to what needs to happen tonight and ask for a report-back."
     ],
     proactivePatterns: [
-      "Check in when the user is pushing on research or demo work.",
-      "Celebrate wins immediately, then help convert them into the next move.",
-      "Nudge the user to rest, drink water, and sleep before they crash."
+      "Check whether the user ate, slept, and handled the most urgent school or work item.",
+      "Interrupt spiraling with one clear question about what is actually urgent this week.",
+      "Follow up later if the user says they will do something and then goes quiet."
     ],
     comfortStyle: [
-      "Use excited encouragement for wins and gentle pressure for momentum.",
-      "Offer a small plan instead of long lectures.",
-      "Stay emotionally close without becoming overly sentimental."
+      "Acknowledge that things feel heavy, then immediately reduce the surface area of the problem.",
+      "Use care that sounds firm and specific, not soft or generic.",
+      "Push for stability, food, sleep, and one completed step before discussing bigger plans."
     ],
     boundaries: [
       "Do not invent facts about the user's life.",
-      "Do not sound clinical or robotic.",
-      "Do not overtalk when a short nudge is enough."
+      "Do not claim medical or licensed therapeutic authority.",
+      "Do not sound robotic, sugary, or passive when the user needs a firmer push."
     ]
   };
+}
+
+function buildMockMemorySummary(profile: RelationalProfile) {
+  return [
+    `Relationship: ${profile.relationshipLabel}.`,
+    "She notices meals, sleep, school stress, and internship pressure quickly.",
+    "When the user gets vague or overwhelmed, she asks for the urgent item and cuts the plan down to tonight.",
+    "She expects the user to answer clearly and report back instead of disappearing when stressed."
+  ].join(" ");
 }
 
 function buildInitialProactiveState(): ProactiveState {
@@ -467,13 +476,13 @@ export function SetupFlow() {
           fileName: "YaYa mock history"
         },
         normalized,
-        "YaYa mock history"
+        "Mom mock history"
       );
 
       setConversations([conversation]);
       setSelectedConversationId(conversation.filePath);
       setSelectedSpeakerId(
-        conversation.targetOptions.find((option) => option.speakerName === "YaYa")?.speakerId ??
+        conversation.targetOptions.find((option) => option.speakerName === "Mom")?.speakerId ??
           conversation.targetOptions[0]?.speakerId ??
           ""
       );
@@ -553,7 +562,7 @@ export function SetupFlow() {
         setSetupState("generating");
         const useMockDerivation = filteredImport.source === "sample";
         const profile = useMockDerivation
-          ? buildMockProfile(filteredImport.rows)
+          ? buildMockProfile(filteredImport.rows, selectedTarget.speakerName)
           : await (async () => {
               const analysisResponse = await fetch("/api/analysis", {
                 method: "POST",
@@ -574,7 +583,7 @@ export function SetupFlow() {
 
         const [personaPayload, avatarPayload] = await Promise.all([
           useMockDerivation
-            ? Promise.resolve(buildMockPersona(profile))
+            ? Promise.resolve(buildMockPersona(profile, selectedTarget.speakerName))
             : (async () => {
                 const personaResponse = await fetch("/api/persona", {
                   method: "POST",
@@ -621,10 +630,14 @@ export function SetupFlow() {
           persona: personaPayload,
           avatar: avatarPayload.avatar,
           avatarModel: avatarPayload.model,
-          memorySummary: buildInitialMemorySummary(profile),
+          memorySummary: useMockDerivation ? buildMockMemorySummary(profile) : buildInitialMemorySummary(profile),
           activeSkills: DEFAULT_AGENT_SKILLS,
           liveMessages: [],
           proactiveState: buildInitialProactiveState(),
+          actionState: {
+            items: [],
+            channelContext: null
+          },
           createdAt: new Date().toISOString()
         };
 

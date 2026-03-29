@@ -483,6 +483,53 @@ async function startOpenClawGateway() {
   return { started: true };
 }
 
+async function sendOpenClawMessage({
+  channel = "discord",
+  target,
+  message,
+  replyTo,
+  accountId,
+  silent = false,
+  dryRun = false
+}) {
+  if (!target || !message) {
+    throw new Error("channel target and message are required.");
+  }
+
+  const args = ["--dev", "message", "send", "--channel", channel, "--target", target, "--message", message, "--json"];
+
+  if (replyTo) {
+    args.push("--reply-to", replyTo);
+  }
+
+  if (accountId) {
+    args.push("--account", accountId);
+  }
+
+  if (silent) {
+    args.push("--silent");
+  }
+
+  if (dryRun) {
+    args.push("--dry-run");
+  }
+
+  const result = await runOpenClaw(args);
+  const stdout = (result.stdout || "").trim();
+
+  try {
+    return JSON.parse(stdout);
+  } catch {
+    return {
+      ok: true,
+      channel,
+      target,
+      stdout,
+      stderr: result.stderr || ""
+    };
+  }
+}
+
 const server = createServer(async (request, response) => {
   if (!request.url) {
     notFound(response);
@@ -591,6 +638,21 @@ const server = createServer(async (request, response) => {
       json(response, 400, {
         error: {
           code: "openclaw_gateway_start_failed",
+          message: error instanceof Error ? error.message : String(error)
+        }
+      });
+    }
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/v1/openclaw/message/send") {
+    try {
+      const body = await readJsonBody(request);
+      ok(response, await sendOpenClawMessage(body));
+    } catch (error) {
+      json(response, 400, {
+        error: {
+          code: "openclaw_message_send_failed",
           message: error instanceof Error ? error.message : String(error)
         }
       });

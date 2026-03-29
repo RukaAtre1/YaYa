@@ -142,6 +142,7 @@ app.post("/v1/chat", async (request, response, next) => {
     const reply = await runDialogue({
       userMessage: request.body?.userMessage ?? "",
       history: request.body?.history ?? [],
+      session: request.body?.session ?? null,
       persona: request.body?.persona ?? samplePersona,
       profile: request.body?.profile ?? sampleProfile,
       memorySummary: request.body?.memorySummary ?? summarizeMemory(),
@@ -216,6 +217,15 @@ app.post("/v1/openclaw/message", enforceOpenClawSecret, async (request, response
         : [];
     const persona = incoming.persona ?? activeSession?.persona ?? samplePersona;
     const profile = incoming.profile ?? activeSession?.profile ?? sampleProfile;
+    const channelContext = {
+      channel: incoming.channel ?? "discord",
+      targetId: incoming.metadata?.conversationId ?? incoming.userId ?? "",
+      peerUserId: incoming.userId ?? "",
+      accountId: incoming.metadata?.accountId ?? "",
+      conversationId: incoming.metadata?.conversationId ?? "",
+      sessionKey: incoming.metadata?.sessionKey ?? "",
+      lastInboundAt: new Date().toISOString()
+    };
     const memorySummary = incoming.memorySummary ?? activeSession?.memorySummary ?? summarizeMemory({
       profile,
       persona,
@@ -227,6 +237,8 @@ app.post("/v1/openclaw/message", enforceOpenClawSecret, async (request, response
     const reply = await runDialogue({
       userMessage: incoming.text ?? "",
       history,
+      session: activeSession,
+      channelContext,
       persona,
       profile,
       memorySummary,
@@ -238,6 +250,7 @@ app.post("/v1/openclaw/message", enforceOpenClawSecret, async (request, response
         ...activeSession,
         memorySummary: reply.memorySummary ?? memorySummary,
         activeSkills: reply.activeSkills ?? activeSkills,
+        actionState: reply.actionState ?? activeSession.actionState,
         liveMessages: [
           ...history,
           {

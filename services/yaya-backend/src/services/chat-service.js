@@ -1,6 +1,7 @@
 import { buildChatPrompt } from "../prompts.js";
 import { buildSampleReply } from "../sample-data.js";
 import { selectAgentSkills } from "./agent-skills-service.js";
+import { applyActionIntent } from "./action-execution-service.js";
 import { extractJsonObject } from "./errors.js";
 import { summarizeMemory } from "./memory-service.js";
 import { generateText } from "./minimax-client.js";
@@ -30,10 +31,23 @@ export async function runDialogue(input) {
   });
 
   if (response.mode === "mock") {
-    return {
+    const fallbackReply = {
       ...buildSampleReply(input.userMessage, { skills: activeSkills }),
       memorySummary: derivedMemorySummary,
       activeSkills
+    };
+
+    const actionResult = applyActionIntent({
+      session: input.session,
+      reply: fallbackReply,
+      userMessage: input.userMessage,
+      channelContext: input.channelContext
+    });
+
+    return {
+      ...fallbackReply,
+      actionItems: actionResult.actionItems,
+      actionState: actionResult.actionState
     };
   }
 
@@ -46,7 +60,7 @@ export async function runDialogue(input) {
     payload = null;
   }
 
-  return {
+  const reply = {
     message: {
       ...fallback.message,
       text: payload?.message?.text ?? fallback.message.text,
@@ -63,5 +77,18 @@ export async function runDialogue(input) {
         : null,
     memorySummary: derivedMemorySummary,
     activeSkills
+  };
+
+  const actionResult = applyActionIntent({
+    session: input.session,
+    reply,
+    userMessage: input.userMessage,
+    channelContext: input.channelContext
+  });
+
+  return {
+    ...reply,
+    actionItems: actionResult.actionItems,
+    actionState: actionResult.actionState
   };
 }
