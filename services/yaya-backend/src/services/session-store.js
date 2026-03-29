@@ -43,6 +43,9 @@ function ensureDatabase() {
     CREATE INDEX IF NOT EXISTS idx_generated_sessions_created_at ON generated_sessions (created_at DESC);
   `);
   ensureColumn(database, "generated_sessions", "discord_target_json", "TEXT");
+  ensureColumn(database, "generated_sessions", "memory_summary", "TEXT");
+  ensureColumn(database, "generated_sessions", "active_skills_json", "TEXT");
+  ensureColumn(database, "generated_sessions", "live_messages_json", "TEXT");
   return database;
 }
 
@@ -64,6 +67,9 @@ function mapRowToSession(row) {
     persona: JSON.parse(row.persona_json),
     avatar: JSON.parse(row.avatar_json),
     avatarModel: row.avatar_model,
+    memorySummary: row.memory_summary ?? "",
+    activeSkills: row.active_skills_json ? JSON.parse(row.active_skills_json) : [],
+    liveMessages: row.live_messages_json ? JSON.parse(row.live_messages_json) : [],
     createdAt: row.created_at
   };
 }
@@ -81,10 +87,11 @@ export function saveGeneratedSession(input) {
       INSERT INTO generated_sessions (
         id, source, import_format, thread_id, source_text,
         normalized_messages_json, speakers_json, profile_json,
-        persona_json, avatar_json, avatar_model, discord_target_json, created_at, updated_at
+        persona_json, avatar_json, avatar_model, discord_target_json,
+        memory_summary, active_skills_json, live_messages_json, created_at, updated_at
       ) VALUES (
         ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
       )
       ON CONFLICT(id) DO UPDATE SET
         source = excluded.source,
@@ -98,6 +105,9 @@ export function saveGeneratedSession(input) {
         avatar_json = excluded.avatar_json,
         avatar_model = excluded.avatar_model,
         discord_target_json = excluded.discord_target_json,
+        memory_summary = excluded.memory_summary,
+        active_skills_json = excluded.active_skills_json,
+        live_messages_json = excluded.live_messages_json,
         updated_at = excluded.updated_at
     `);
 
@@ -114,6 +124,9 @@ export function saveGeneratedSession(input) {
       JSON.stringify(input.avatar),
       input.avatarModel,
       input.discordTarget ? JSON.stringify(input.discordTarget) : null,
+      input.memorySummary ?? "",
+      JSON.stringify(input.activeSkills ?? []),
+      JSON.stringify(input.liveMessages ?? []),
       input.createdAt || now,
       now
     );

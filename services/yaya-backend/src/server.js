@@ -8,6 +8,7 @@ import { runDialogue } from "./services/chat-service.js";
 import { getConfig } from "./services/config.js";
 import { resolveExpressionState } from "./services/expression-service.js";
 import { synthesizeGeminiSpeech } from "./services/gemini-speech-service.js";
+import { generateGeminiVisualFrame } from "./services/gemini-visual-service.js";
 import { normalizeImportFile } from "./services/import-file-service.js";
 import { getImportCapabilities, normalizeImportPayload } from "./services/import-normalizer.js";
 import { normalizeError, ServiceError } from "./services/errors.js";
@@ -15,6 +16,7 @@ import { summarizeMemory } from "./services/memory-service.js";
 import { getModelManifest } from "./services/minimax-client.js";
 import { compilePersona } from "./services/persona-service.js";
 import {
+  getGeneratedSessionById,
   getLatestGeneratedSession,
   getSessionStoreStatus,
   saveGeneratedSession
@@ -176,16 +178,62 @@ app.post("/v1/ambience", async (request, response, next) => {
   }
 });
 
+app.post("/v1/visual", async (request, response, next) => {
+  try {
+    const payload = await generateGeminiVisualFrame(request.body ?? {});
+    response.json(payload);
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.post("/v1/openclaw/message", enforceOpenClawSecret, async (request, response, next) => {
   try {
     const incoming = request.body ?? {};
+    const activeSession =
+      (incoming.sessionId ? getGeneratedSessionById(incoming.sessionId) : null) ??
+      getLatestGeneratedSession();
+    const history = Array.isArray(activeSession?.liveMessages)
+      ? activeSession.liveMessages
+      : Array.isArray(incoming.history)
+        ? incoming.history
+        : [];
+    const persona = incoming.persona ?? activeSession?.persona ?? samplePersona;
+    const profile = incoming.profile ?? activeSession?.profile ?? sampleProfile;
+    const memorySummary = incoming.memorySummary ?? activeSession?.memorySummary ?? summarizeMemory({
+      profile,
+      persona,
+      history,
+      userMessage: incoming.text ?? ""
+    });
+    const activeSkills = incoming.activeSkills ?? activeSession?.activeSkills ?? [];
 
     const reply = await runDialogue({
       userMessage: incoming.text ?? "",
-      history: incoming.history ?? [],
-      persona: incoming.persona ?? samplePersona,
-      memorySummary: summarizeMemory()
+      history,
+      persona,
+      profile,
+      memorySummary,
+      activeSkills
     });
+
+    if (activeSession) {
+      saveGeneratedSession({
+        ...activeSession,
+        memorySummary: reply.memorySummary ?? memorySummary,
+        activeSkills: reply.activeSkills ?? activeSkills,
+        liveMessages: [
+          ...history,
+          {
+            id: `openclaw-user-${Date.now()}`,
+            role: "user",
+            text: incoming.text ?? "",
+            timestamp: new Date().toISOString()
+          },
+          reply.message
+        ].slice(-24)
+      });
+    }
 
     response.json({
       channel: incoming.channel ?? "openclaw",

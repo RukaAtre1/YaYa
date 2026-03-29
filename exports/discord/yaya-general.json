@@ -1,0 +1,98 @@
+{
+  "guild": {
+    "id": "1487605452907741196",
+    "name": "YaYa",
+    "iconUrl": "https://cdn.discordapp.com/embed/avatars/0.png"
+  },
+  "channel": {
+    "id": "1487605454178881548",
+    "type": "GuildTextChat",
+    "categoryId": "1487605454178881546",
+    "category": "Text Channels",
+    "name": "general",
+    "topic": null
+  },
+  "dateRange": {
+    "after": null,
+    "before": null
+  },
+  "exportedAt": "2026-03-28T17:35:16.7594547-07:00",
+  "messages": [
+    {
+      "id": "1487605564618838057",
+      "type": "GuildMemberJoin",
+      "timestamp": "2026-03-28T17:13:24.98-07:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "Joined the server.",
+      "author": {
+        "id": "1487602936124014754",
+        "name": "YaYa",
+        "discriminator": "9747",
+        "nickname": "YaYa",
+        "color": null,
+        "isBot": true,
+        "roles": [
+          {
+            "id": "1487605563927040094",
+            "name": "YaYa",
+            "color": null,
+            "position": 1
+          }
+        ],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/1487602936124014754/6888d6728716182e6f41b4b0aa1e2570.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [],
+      "inlineEmojis": []
+    },
+    {
+      "id": "1487607772093878344",
+      "type": "Default",
+      "timestamp": "2026-03-28T17:22:11.283-07:00",
+      "timestampEdited": null,
+      "callEndedTimestamp": null,
+      "isPinned": false,
+      "content": "@YaYa 你好",
+      "author": {
+        "id": "931563287903100939",
+        "name": ".bigharley",
+        "discriminator": "0000",
+        "nickname": "BIGHarley",
+        "color": null,
+        "isBot": false,
+        "roles": [],
+        "avatarUrl": "https://cdn.discordapp.com/avatars/931563287903100939/02015db5e81f009fc62fd31f231a3525.png?size=512"
+      },
+      "attachments": [],
+      "embeds": [],
+      "stickers": [],
+      "reactions": [],
+      "mentions": [
+        {
+          "id": "1487602936124014754",
+          "name": "YaYa",
+          "discriminator": "9747",
+          "nickname": "YaYa",
+          "color": null,
+          "isBot": true,
+          "roles": [
+            {
+              "id": "1487605563927040094",
+              "name": "YaYa",
+              "color": null,
+              "position": 1
+            }
+          ],
+          "avatarUrl": "https://cdn.discordapp.com/avatars/1487602936124014754/6888d6728716182e6f41b4b0aa1e2570.png?size=512"
+        }
+      ],
+      "inlineEmojis": []
+    }
+  ],
+  "messageCount": 2
+}

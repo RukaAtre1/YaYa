@@ -53,6 +53,15 @@ async function pathExists(targetPath) {
   }
 }
 
+function getDiscordToken(token) {
+  return (
+    token ||
+    process.env.OPENCLAW_DISCORD_BOT_TOKEN ||
+    process.env.DISCORD_BOT_TOKEN ||
+    ""
+  );
+}
+
 function runCommand(command, args, options = {}) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
@@ -299,17 +308,18 @@ async function scanWechatDatabases() {
 function runDiscordExporter({ exporterPath, token, channelId, format = "Json", outputPath }) {
   return new Promise((resolve, reject) => {
     const resolvedExporterPath = exporterPath || getDiscordExporterExecutable();
+    const resolvedToken = getDiscordToken(token);
     const resolvedOutputPath =
       outputPath || path.join(workspaceRoot, "exports", "discord", `discord-${channelId}.${format.toLowerCase()}`);
 
-    if (!resolvedExporterPath || !token || !channelId) {
+    if (!resolvedExporterPath || !resolvedToken || !channelId) {
       reject(new Error("DiscordChatExporter, token, and channelId are required."));
       return;
     }
 
     const child = spawn(
       resolvedExporterPath,
-      ["export", "-t", token, "-c", channelId, "-f", format, "-o", resolvedOutputPath],
+      ["export", "-t", resolvedToken, "-c", channelId, "-f", format, "-o", resolvedOutputPath],
       { cwd: workspaceRoot }
     );
 
@@ -340,6 +350,73 @@ function runDiscordExporter({ exporterPath, token, channelId, format = "Json", o
   });
 }
 
+async function runDiscordExporterListCommand(command, args = [], token = "") {
+  const resolvedExporterPath = getDiscordExporterExecutable();
+  const resolvedToken = getDiscordToken(token);
+
+  if (!resolvedExporterPath || !resolvedToken) {
+    throw new Error("DiscordChatExporter and a Discord token are required.");
+  }
+
+  const result = await runCommand(resolvedExporterPath, [command, "-t", resolvedToken, ...args], {
+    cwd: workspaceRoot
+  });
+
+  return result.stdout || "";
+}
+
+function parseDiscordExporterRows(output) {
+  return output
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.includes("|"))
+    .map((line) => line.split("|").map((part) => part.trim()))
+    .filter((parts) => /^\d{5,}$/.test(parts[0] ?? ""));
+}
+
+async function listDiscordTargets(token = "") {
+  const dmOutput = await runDiscordExporterListCommand("dm", [], token).catch(() => "");
+  const guildOutput = await runDiscordExporterListCommand("guilds", [], token).catch(() => "");
+
+  const dmTargets = parseDiscordExporterRows(dmOutput).map((parts) => ({
+    id: parts[0],
+    kind: "dm",
+    name: parts.slice(1).join(" | ") || parts[0],
+    label: parts.slice(1).join(" | ") || parts[0]
+  }));
+
+  const guilds = parseDiscordExporterRows(guildOutput).map((parts) => ({
+    id: parts[0],
+    name: parts.slice(1).join(" | ") || parts[0]
+  }));
+
+  const guildTargets = [];
+
+  for (const guild of guilds) {
+    const channelOutput = await runDiscordExporterListCommand(
+      "channels",
+      ["-g", guild.id, "--include-threads", "All"],
+      token
+    ).catch(() => "");
+
+    for (const parts of parseDiscordExporterRows(channelOutput)) {
+      const name = parts.slice(1).join(" | ") || parts[0];
+      guildTargets.push({
+        id: parts[0],
+        kind: "guild_channel",
+        name,
+        label: `${guild.name} / ${name}`,
+        guildId: guild.id,
+        guildName: guild.name
+      });
+    }
+  }
+
+  return {
+    targets: [...dmTargets, ...guildTargets]
+  };
+}
+
 async function getOpenClawStatus() {
   const channels = await runOpenClaw(["--dev", "channels", "status"]);
   const plugins = await runOpenClaw(["--dev", "plugins", "list"]);
@@ -367,11 +444,7 @@ async function ensureOpenClawBridgeInstalled() {
 }
 
 async function connectOpenClawDiscord({ token, name = "yaya-discord" }) {
-  const resolvedToken =
-    token ||
-    process.env.OPENCLAW_DISCORD_BOT_TOKEN ||
-    process.env.DISCORD_BOT_TOKEN ||
-    "";
+  const resolvedToken = getDiscordToken(token);
 
   await runOpenClaw(["--profile", "dev", "config", "set", "gateway.mode", "local"]);
   await ensureOpenClawBridgeInstalled();
@@ -450,6 +523,20 @@ const server = createServer(async (request, response) => {
       source: "wechat",
       files: await scanWechatDatabases()
     });
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/v1/discord/targets") {
+    try {
+      ok(response, await listDiscordTargets(url.searchParams.get("token") ?? ""));
+    } catch (error) {
+      json(response, 400, {
+        error: {
+          code: "discord_targets_failed",
+          message: error instanceof Error ? error.message : String(error)
+        }
+      });
+    }
     return;
   }
 

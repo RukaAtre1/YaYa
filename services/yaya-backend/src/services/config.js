@@ -33,6 +33,13 @@ loadEnvFile(path.join(serviceRoot, ".env"));
 
 export function getConfig() {
   const configuredSpeechMode = String(process.env.GEMINI_SPEECH_MODE ?? "tts").toLowerCase();
+  const configuredDynamicImageModel = String(
+    process.env.GEMINI_DYNAMIC_IMAGE_MODEL ?? "gemini-2.5-flash-image"
+  ).trim();
+  const geminiDynamicImageModel =
+    configuredDynamicImageModel.startsWith("AIza")
+      ? "gemini-2.5-flash-image"
+      : configuredDynamicImageModel;
 
   return {
     port: Number(process.env.PORT ?? 8787),
@@ -49,7 +56,7 @@ export function getConfig() {
     geminiTtsVoiceName: process.env.GEMINI_TTS_VOICE_NAME ?? "Kore",
     geminiTtsSampleRateHz: Number(process.env.GEMINI_TTS_SAMPLE_RATE_HZ ?? 24000),
     imagenModel: process.env.IMAGEN_MODEL ?? "imagen-4.0-generate-001",
-    geminiDynamicImageModel: process.env.GEMINI_DYNAMIC_IMAGE_MODEL ?? "",
+    geminiDynamicImageModel,
     lyriaModel: process.env.LYRIA_MODEL ?? "Lyria 3 Clip",
     openClawSharedSecret: process.env.OPENCLAW_SHARED_SECRET ?? "",
     allowMockFallback: String(process.env.YAYA_ALLOW_MOCK_FALLBACK ?? "false").toLowerCase() === "true",

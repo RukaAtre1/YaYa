@@ -7,9 +7,11 @@ import {
 } from "@/lib/demo-data";
 import { normalizeImportInput as normalizeImportInputLocally } from "@/lib/import-normalizers";
 import type {
+  AgentSkill,
   AmbienceLoop,
   ApiErrorPayload,
   ChatMessage,
+  DiscordImportTargetListResult,
   ExpressionState,
   ImportFileNormalizationRequest,
   ImportNormalizationRequest,
@@ -18,6 +20,7 @@ import type {
   OpenClawDiscordStatus,
   PersonaCard,
   RelationalProfile,
+  VisualFrame,
   SpeechSynthesisResult
 } from "@/types/yaya";
 
@@ -143,6 +146,84 @@ export async function fetchLocalAgentScan(source: "discord" | "wechat") {
     }
 
     return (await response.json()) as LocalAgentScanResult;
+  } catch (error) {
+    if (error instanceof BackendProxyError) {
+      throw error;
+    }
+
+    throw new BackendProxyError("Failed to reach the YaYa local agent.", {
+      code: "local_agent_unreachable",
+      status: 502,
+      details: error instanceof Error ? error.message : String(error)
+    });
+  }
+}
+
+export async function fetchDiscordImportTargets() {
+  try {
+    const response = await fetch(`${getLocalAgentUrl()}/v1/discord/targets`, {
+      method: "GET",
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      const payload = (await response.json().catch(() => null)) as ApiErrorPayload | null;
+      throw new BackendProxyError(
+        payload?.error?.message ?? `Discord target request failed with status ${response.status}.`,
+        {
+          code: payload?.error?.code ?? "discord_targets_failed",
+          status: response.status,
+          details: payload?.error?.details
+        }
+      );
+    }
+
+    return (await response.json()) as DiscordImportTargetListResult;
+  } catch (error) {
+    if (error instanceof BackendProxyError) {
+      throw error;
+    }
+
+    throw new BackendProxyError("Failed to reach the YaYa local agent.", {
+      code: "local_agent_unreachable",
+      status: 502,
+      details: error instanceof Error ? error.message : String(error)
+    });
+  }
+}
+
+export async function exportDiscordHistory(input: {
+  channelId: string;
+  format?: "Json" | "Csv" | "PlainText";
+}) {
+  try {
+    const response = await fetch(`${getLocalAgentUrl()}/v1/discord/export`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(input),
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      const payload = (await response.json().catch(() => null)) as ApiErrorPayload | null;
+      throw new BackendProxyError(
+        payload?.error?.message ?? `Discord export failed with status ${response.status}.`,
+        {
+          code: payload?.error?.code ?? "discord_export_failed",
+          status: response.status,
+          details: payload?.error?.details
+        }
+      );
+    }
+
+    return (await response.json()) as {
+      exporterPath: string;
+      outputPath: string;
+      stdout: string;
+      stderr: string;
+    };
   } catch (error) {
     if (error instanceof BackendProxyError) {
       throw error;
@@ -359,7 +440,9 @@ export async function fetchChatReply(input: {
   userMessage: string;
   history: ChatMessage[];
   persona: PersonaCard;
+  profile?: RelationalProfile;
   memorySummary: string;
+  activeSkills?: AgentSkill[];
 }) {
   return safeJsonFetch(
     "/v1/chat",
@@ -392,6 +475,20 @@ export async function fetchExpression(input: { emotionTag?: string }) {
 
 export async function fetchAmbience(input: { emotionTag?: string }) {
   return safeJsonFetch<AmbienceLoop>("/v1/ambience", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+}
+
+export async function fetchVisualFrame(input: {
+  persona: PersonaCard;
+  profile: RelationalProfile;
+  avatarPrompt: string;
+  emotionTag?: string;
+  latestUserMessage?: string;
+  latestAssistantMessage?: string;
+}) {
+  return safeJsonFetch<VisualFrame>("/v1/visual", {
     method: "POST",
     body: JSON.stringify(input)
   });

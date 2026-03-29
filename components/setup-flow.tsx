@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { sampleProfile } from "@/lib/demo-data";
 import type {
+  AgentSkill,
   ApiErrorPayload,
   BackendHealth,
   GeneratedVirtualHumanSession,
@@ -15,6 +17,33 @@ import type {
 } from "@/types/yaya";
 
 const SESSION_STORAGE_KEY = "yaya-generated-session";
+const DEFAULT_AGENT_SKILLS: AgentSkill[] = [
+  {
+    id: "hackathon_copilot",
+    label: "Hackathon copilot",
+    description: "Break ideas into shippable tasks and unblock implementation."
+  },
+  {
+    id: "research_scout",
+    label: "Research scout",
+    description: "Turn vague questions into concrete research plans and summaries."
+  },
+  {
+    id: "planner_operator",
+    label: "Planner operator",
+    description: "Convert goals into ordered next actions."
+  },
+  {
+    id: "accountability_friend",
+    label: "Accountability friend",
+    description: "Keep track of promises, meals, sleep, and follow-ups."
+  },
+  {
+    id: "discord_relay",
+    label: "Discord relay",
+    description: "Carry context between Discord and YaYa."
+  }
+];
 
 type SetupState = "idle" | "analyzing" | "generating" | "entering";
 type HistoryWindow = "100" | "300" | "1000" | "all";
@@ -32,8 +61,37 @@ type DiscordConversationSummary = {
   normalized: ImportNormalizationResult;
 };
 
+function toConversationSummary(
+  file: Pick<LocalAgentFileRecord, "path" | "fileName">,
+  normalized: ImportNormalizationResult,
+  explicitLabel?: string
+) {
+  const targetOptions = buildSpeakerOptions(normalized);
+
+  return {
+    filePath: file.path,
+    fileName: file.fileName,
+    label: explicitLabel ?? buildConversationLabel({ ...file, sizeBytes: 0, modifiedAt: null }, normalized),
+    messageCount: normalized.rows.length,
+    speakersLine: targetOptions.map((option) => option.speakerName).join(", "),
+    targetOptions,
+    normalized
+  } satisfies DiscordConversationSummary;
+}
+
 function buildTranscript(rows: MessageRecord[]) {
   return rows.map((row) => `${row.speakerName}: ${row.text}`).join("\n");
+}
+
+function buildInitialMemorySummary(profile: RelationalProfile) {
+  const baseProfile = profile ?? sampleProfile;
+
+  return [
+    `Relationship: ${baseProfile.relationshipLabel}.`,
+    `Tone: ${baseProfile.toneTraits.slice(0, 4).join(", ")}.`,
+    `Care style: ${baseProfile.careStyle.slice(0, 2).join("; ")}.`,
+    `Recurring concerns: ${baseProfile.recurringConcerns.slice(0, 3).join(", ")}.`
+  ].join(" ");
 }
 
 function buildSpeakerOptions(result: ImportNormalizationResult) {
@@ -106,10 +164,6 @@ function formatRealtimeState(status: OpenClawDiscordStatus | null) {
   }
 
   return "realtime not configured";
-}
-
-function isNumericDiscordId(value: string) {
-  return /^\d{5,}$/.test(value);
 }
 
 export function SetupFlow() {
@@ -205,11 +259,6 @@ export function SetupFlow() {
     () => summarizeImport(workingRows, selectedTarget?.speakerName ?? ""),
     [selectedTarget?.speakerName, workingRows]
   );
-  const realtimeTargetReady = useMemo(
-    () => Boolean(selectedTarget && isNumericDiscordId(selectedTarget.speakerId)),
-    [selectedTarget]
-  );
-
   const handleImportDiscordHistory = async () => {
     setIsImportingHistory(true);
     setHistoryError("");
@@ -252,17 +301,7 @@ export function SetupFlow() {
           }
 
           const normalized = payload as ImportNormalizationResult;
-          const targetOptions = buildSpeakerOptions(normalized);
-
-          return {
-            filePath: file.path,
-            fileName: file.fileName,
-            label: buildConversationLabel(file, normalized),
-            messageCount: normalized.rows.length,
-            speakersLine: targetOptions.map((option) => option.speakerName).join(", "),
-            targetOptions,
-            normalized
-          } satisfies DiscordConversationSummary;
+          return toConversationSummary(file, normalized);
         })
       );
 
@@ -291,12 +330,46 @@ export function SetupFlow() {
     }
   };
 
-  const handleConnectRealtime = async () => {
-    if (!selectedTarget) {
-      setRealtimeError("Choose who YaYa should keep talking to before connecting realtime.");
-      return;
-    }
+  const handleLoadMockHistory = async () => {
+    setIsImportingHistory(true);
+    setHistoryError("");
+    setSetupError("");
 
+    try {
+      const response = await fetch("/api/mock/history");
+      const payload = (await response.json()) as
+        | (ImportNormalizationResult & { generatedTranscriptPath?: string })
+        | ApiErrorPayload;
+
+      if (!response.ok) {
+        throw new Error((payload as ApiErrorPayload).error.message);
+      }
+
+      const normalized = payload as ImportNormalizationResult & { generatedTranscriptPath?: string };
+      const conversation = toConversationSummary(
+        {
+          path: normalized.generatedTranscriptPath ?? "mock://yaya-chat-history",
+          fileName: "YaYa mock history"
+        },
+        normalized,
+        "YaYa mock history"
+      );
+
+      setConversations([conversation]);
+      setSelectedConversationId(conversation.filePath);
+      setSelectedSpeakerId(
+        conversation.targetOptions.find((option) => option.speakerName === "YaYa")?.speakerId ??
+          conversation.targetOptions[0]?.speakerId ??
+          ""
+      );
+    } catch (error) {
+      setHistoryError(error instanceof Error ? error.message : "Failed to load local mock history.");
+    } finally {
+      setIsImportingHistory(false);
+    }
+  };
+
+  const handleConnectRealtime = async () => {
     setIsConnectingRealtime(true);
     setRealtimeError("");
 
@@ -419,6 +492,9 @@ export function SetupFlow() {
           persona: personaPayload,
           avatar: avatarPayload.avatar,
           avatarModel: avatarPayload.model,
+          memorySummary: buildInitialMemorySummary(profile),
+          activeSkills: DEFAULT_AGENT_SKILLS,
+          liveMessages: [],
           createdAt: new Date().toISOString()
         };
 
@@ -458,13 +534,15 @@ export function SetupFlow() {
         <article className="minimal-setup-card minimal-setup-card-compact">
           <section className="minimal-entry-block">
             <div className="minimal-entry-head">
-              <div>
-                <h2>Import Discord history</h2>
-                <p>Choose one Discord conversation to generate the virtual human.</p>
+              <h2>Import Discord history</h2>
+              <div className="setup-inline-actions">
+                <button className="secondary-action" onClick={handleLoadMockHistory} type="button">
+                  {isImportingHistory ? "Loading..." : "Load Mock History"}
+                </button>
+                <button className="connect-discord-button" onClick={handleImportDiscordHistory} type="button">
+                  {isImportingHistory ? "Importing..." : "Import Discord history"}
+                </button>
               </div>
-              <button className="connect-discord-button" onClick={handleImportDiscordHistory} type="button">
-                {isImportingHistory ? "Importing..." : "Import Discord history"}
-              </button>
             </div>
 
             {conversations.length > 0 ? (
@@ -530,47 +608,28 @@ export function SetupFlow() {
           </section>
 
           <section className="minimal-entry-block">
-            <div className="minimal-entry-head">
-              <div>
-                <h2>Connect Discord realtime</h2>
-                <p>Use OpenClaw as the relay layer so YaYa can keep talking to the selected target.</p>
-              </div>
+            <div className="discord-connect-row">
+              <span className="discord-inline-label">Discord token</span>
               <span className="realtime-state-pill">{formatRealtimeState(openClawStatus)}</span>
             </div>
 
             <div className="minimal-contacts-row minimal-contacts-row-wide">
               <input
                 className="setup-text-input setup-token-input"
-                placeholder="Discord bot token if OpenClaw is not configured yet"
+                placeholder="Paste Discord bot token"
                 type="password"
                 value={discordBotToken}
                 onChange={(event) => setDiscordBotToken(event.target.value)}
               />
               <button
                 className="connect-discord-button"
-                disabled={!selectedTarget || isConnectingRealtime}
+                disabled={isConnectingRealtime}
                 onClick={handleConnectRealtime}
                 type="button"
               >
-                {isConnectingRealtime ? "Connecting..." : "Connect Discord realtime"}
+                {isConnectingRealtime ? "Connecting..." : "Connect Discord"}
               </button>
             </div>
-
-            <div className="minimal-meta-row">
-              <span className="minimal-meta">
-                {selectedTarget
-                  ? `Live target: ${selectedTarget.speakerName}`
-                  : "Choose a target from imported Discord history first."}
-              </span>
-              {openClawStatus ? <span className="minimal-meta">{openClawStatus.channelStatusLine}</span> : null}
-            </div>
-
-            {!realtimeTargetReady && selectedTarget ? (
-              <div className="error-banner">
-                This target came from a simplified export without a stable Discord user id. Realtime DM routing works
-                best with DiscordChatExporter JSON or JSON array imports that preserve ids.
-              </div>
-            ) : null}
           </section>
 
           <div className="minimal-setup-footer">
@@ -585,11 +644,6 @@ export function SetupFlow() {
             </button>
           </div>
 
-          {selectedConversation && selectedConversation.targetOptions.length > 2 ? (
-            <div className="error-banner">
-              This export includes multiple speakers. Best results come from one DM or one focused Discord thread.
-            </div>
-          ) : null}
           {historyError ? <div className="error-banner">{historyError}</div> : null}
           {realtimeError ? <div className="error-banner">{realtimeError}</div> : null}
           {setupError ? <div className="error-banner">{setupError}</div> : null}

@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { samplePersona } from "@/lib/demo-data";
 import { fetchChatReply, toApiErrorResponse } from "@/lib/yaya-backend";
-import type { ChatMessage, PersonaCard } from "@/types/yaya";
+import type { AgentSkill, ChatMessage, PersonaCard, RelationalProfile } from "@/types/yaya";
 
 type ChatRequest = {
   userMessage?: string;
   history?: ChatMessage[];
   persona?: PersonaCard;
+  profile?: RelationalProfile;
   memorySummary?: string;
+  activeSkills?: AgentSkill[];
 };
 
 export async function POST(request: Request) {
@@ -18,9 +20,11 @@ export async function POST(request: Request) {
       userMessage: body.userMessage ?? "",
       history: body.history ?? [],
       persona: body.persona ?? samplePersona,
+      profile: body.profile,
       memorySummary:
         body.memorySummary ??
-        "The user responds well to practical concern, especially around meals, sleep, and overload."
+        "The user responds well to practical concern, especially around meals, sleep, and overload.",
+      activeSkills: body.activeSkills ?? []
     });
 
     return NextResponse.json(reply);

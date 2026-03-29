@@ -65,6 +65,19 @@ export type LocalAgentScanResult = {
   files: LocalAgentFileRecord[];
 };
 
+export type DiscordImportTarget = {
+  id: string;
+  kind: "dm" | "guild_channel";
+  name: string;
+  label: string;
+  guildId?: string;
+  guildName?: string;
+};
+
+export type DiscordImportTargetListResult = {
+  targets: DiscordImportTarget[];
+};
+
 export type OpenClawDiscordStatus = {
   gatewayReachable: boolean;
   bridgeLoaded: boolean;
@@ -101,6 +114,12 @@ export type PersonaCard = {
   boundaries: string[];
 };
 
+export type AgentSkill = {
+  id: string;
+  label: string;
+  description: string;
+};
+
 export type AvatarProfile = {
   visualPrompt: string;
   moodStates: string[];
@@ -127,6 +146,8 @@ export type ChatReply = {
   rationale: string[];
   emotionTag?: string;
   actionIntent?: string | null;
+  memorySummary?: string;
+  activeSkills?: AgentSkill[];
 };
 
 export type SpeechSynthesisResult = {
@@ -173,6 +194,16 @@ export type AmbienceLoop = {
   source: string;
 };
 
+export type VisualFrame = {
+  imageDataUri: string;
+  mimeType: string;
+  model: string;
+  prompt: string;
+  stateLabel: string;
+  revision: string;
+  source: string;
+};
+
 export type RuntimeCapabilityState = "ready" | "limited" | "offline";
 
 export type RuntimeCapability = {
@@ -212,6 +243,9 @@ export type GeneratedVirtualHumanSession = {
   persona: PersonaCard;
   avatar: AvatarProfile;
   avatarModel: string;
+  memorySummary?: string;
+  activeSkills?: AgentSkill[];
+  liveMessages?: ChatMessage[];
   createdAt: string;
 };
 

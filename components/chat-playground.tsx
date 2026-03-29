@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { sampleAvatar, samplePersona, sampleProfile } from "@/lib/demo-data";
+import { samplePersona } from "@/lib/demo-data";
 import type {
   AmbienceLoop,
   ApiErrorPayload,
@@ -10,7 +10,8 @@ import type {
   ChatReply,
   ExpressionState,
   GeneratedVirtualHumanSession,
-  SpeechSynthesisResult
+  SpeechSynthesisResult,
+  VisualFrame
 } from "@/types/yaya";
 
 const SESSION_STORAGE_KEY = "yaya-generated-session";
@@ -19,6 +20,7 @@ type RuntimeState = {
   speech: SpeechSynthesisResult | null;
   expression: ExpressionState | null;
   ambience: AmbienceLoop | null;
+  visual: VisualFrame | null;
   speechError: string | null;
 };
 
@@ -41,24 +43,15 @@ function resolveVisualMood(state: RuntimeState, emotionTag: string) {
 }
 
 function buildMemorySummary(bundle: GeneratedVirtualHumanSession) {
-  return [
-    `Relationship: ${bundle.profile.relationshipLabel}.`,
-    `Tone: ${bundle.profile.toneTraits.join(", ")}.`,
-    `Care style: ${bundle.profile.careStyle.join("; ")}.`,
-    `Recurring concerns: ${bundle.profile.recurringConcerns.join(", ")}.`
-  ].join(" ");
-}
-
-function buildSourceLabel(bundle: GeneratedVirtualHumanSession) {
-  if (bundle.source === "discord") {
-    return "Discord";
-  }
-
-  if (bundle.source === "wechat") {
-    return "WeChat";
-  }
-
-  return "Imported session";
+  return (
+    bundle.memorySummary ??
+    [
+      `Relationship: ${bundle.profile.relationshipLabel}.`,
+      `Tone: ${bundle.profile.toneTraits.join(", ")}.`,
+      `Care style: ${bundle.profile.careStyle.join("; ")}.`,
+      `Recurring concerns: ${bundle.profile.recurringConcerns.join(", ")}.`
+    ].join(" ")
+  );
 }
 
 export function ChatPlayground() {
@@ -69,11 +62,11 @@ export function ChatPlayground() {
   const [sessionBundle, setSessionBundle] = useState<GeneratedVirtualHumanSession | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [lastEmotionTag, setLastEmotionTag] = useState("");
-  const [lastActionIntent, setLastActionIntent] = useState<string | null>(null);
   const [runtimeState, setRuntimeState] = useState<RuntimeState>({
     speech: null,
     expression: null,
     ambience: null,
+    visual: null,
     speechError: null
   });
   const [runtimeError, setRuntimeError] = useState("");
@@ -85,15 +78,19 @@ export function ChatPlayground() {
 
     const applyBundle = (bundle: GeneratedVirtualHumanSession) => {
       setSessionBundle(bundle);
-      setMessages([
-        {
-          id: "session-intro",
-          role: "assistant",
-          text: "I'm here.",
-          timestamp: new Date().toISOString(),
-          turnType: "proactive_check_in"
-        }
-      ]);
+      setMessages(
+        Array.isArray(bundle.liveMessages) && bundle.liveMessages.length > 0
+          ? bundle.liveMessages
+          : [
+              {
+                id: "session-intro",
+                role: "assistant",
+                text: "I'm here.",
+                timestamp: new Date().toISOString(),
+                turnType: "proactive_check_in"
+              }
+            ]
+      );
       setIsReady(true);
     };
 
@@ -133,6 +130,41 @@ export function ChatPlayground() {
     });
   }, [runtimeState.speech]);
 
+  useEffect(() => {
+    if (!sessionBundle) {
+      return;
+    }
+
+    void fetch("/api/visual", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        persona: sessionBundle.persona,
+        profile: sessionBundle.profile,
+        avatarPrompt: sessionBundle.avatar.visualPrompt,
+        emotionTag: lastEmotionTag || "steady_care",
+        latestAssistantMessage: sessionBundle.persona.summary
+      })
+    })
+      .then(async (response) => {
+        const payload = (await response.json()) as VisualFrame | ApiErrorPayload;
+
+        if (!response.ok) {
+          return;
+        }
+
+        setRuntimeState((current) => ({
+          ...current,
+          visual: payload as VisualFrame
+        }));
+      })
+      .catch(() => {
+        // Keep the lightweight fallback portrait when the image layer is unavailable.
+      });
+  }, [sessionBundle]);
+
   const submit = () => {
     if (!sessionBundle) {
       return;
@@ -156,12 +188,13 @@ export function ChatPlayground() {
     setInput("");
     setError("");
     setRuntimeError("");
-    setRuntimeState({
+    setRuntimeState((current) => ({
       speech: null,
       expression: null,
       ambience: null,
+      visual: current.visual,
       speechError: null
-    });
+    }));
 
     startTransition(async () => {
       try {
@@ -174,7 +207,9 @@ export function ChatPlayground() {
             userMessage: trimmed,
             history: nextHistory,
             persona: sessionBundle.persona,
-            memorySummary: buildMemorySummary(sessionBundle)
+            profile: sessionBundle.profile,
+            memorySummary: buildMemorySummary(sessionBundle),
+            activeSkills: sessionBundle.activeSkills ?? []
           })
         });
 
@@ -185,10 +220,26 @@ export function ChatPlayground() {
         }
 
         const reply = payload as ChatReply;
-        setMessages((current) => [...current, reply.message]);
+        const updatedMessages = [...nextHistory, reply.message];
+        setMessages(updatedMessages);
         setLastEmotionTag(reply.emotionTag ?? "");
-        setLastActionIntent(reply.actionIntent ?? null);
-
+        const nextBundle: GeneratedVirtualHumanSession = {
+          ...sessionBundle,
+          memorySummary: reply.memorySummary ?? buildMemorySummary(sessionBundle),
+          activeSkills: reply.activeSkills ?? sessionBundle.activeSkills ?? [],
+          liveMessages: updatedMessages
+        };
+        setSessionBundle(nextBundle);
+        window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(nextBundle));
+        void fetch("/api/session", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(nextBundle)
+        }).catch(() => {
+          // Keep the in-browser session even if persistence is temporarily unavailable.
+        });
         void Promise.all([
           fetch("/api/speech", {
             method: "POST",
@@ -217,18 +268,34 @@ export function ChatPlayground() {
             body: JSON.stringify({
               emotionTag: reply.emotionTag
             })
+          }),
+          fetch("/api/visual", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              persona: sessionBundle.persona,
+              profile: sessionBundle.profile,
+              avatarPrompt: sessionBundle.avatar.visualPrompt,
+              emotionTag: reply.emotionTag,
+              latestUserMessage: trimmed,
+              latestAssistantMessage: reply.message.text
+            })
           })
         ])
-          .then(async ([speechResponse, expressionResponse, ambienceResponse]) => {
-            const [speechPayload, expressionPayload, ambiencePayload] = await Promise.all([
+          .then(async ([speechResponse, expressionResponse, ambienceResponse, visualResponse]) => {
+            const [speechPayload, expressionPayload, ambiencePayload, visualPayload] = await Promise.all([
               speechResponse.json(),
               expressionResponse.json(),
-              ambienceResponse.json()
+              ambienceResponse.json(),
+              visualResponse.json()
             ]);
 
             const expression = expressionResponse.ok ? (expressionPayload as ExpressionState) : null;
             const ambience = ambienceResponse.ok ? (ambiencePayload as AmbienceLoop) : null;
             const speech = speechResponse.ok ? (speechPayload as SpeechSynthesisResult) : null;
+            const visual = visualResponse.ok ? (visualPayload as VisualFrame) : null;
             const speechError = speechResponse.ok
               ? null
               : (speechPayload as ApiErrorPayload)?.error?.message ?? "Speech synthesis is unavailable.";
@@ -243,12 +310,13 @@ export function ChatPlayground() {
               setRuntimeError(nonSpeechError);
             }
 
-            setRuntimeState({
+            setRuntimeState((current) => ({
               speech,
               expression,
               ambience,
+              visual: visual ?? current.visual,
               speechError
-            });
+            }));
           })
           .catch((runtimeFetchError) => {
             setRuntimeError(
@@ -282,11 +350,9 @@ export function ChatPlayground() {
     : "";
   const visualMood = resolveVisualMood(runtimeState, lastEmotionTag);
   const humanName = sessionBundle.persona.name ?? samplePersona.name;
-  const humanSummary = sessionBundle.persona.summary ?? samplePersona.summary;
-  const visualPrompt = sessionBundle.avatar.visualPrompt ?? sampleAvatar.visualPrompt;
-  const careSignature = sessionBundle.profile.careStyle?.[0] ?? sampleProfile.careStyle[0];
   const visualStateLabel = runtimeState.expression?.cachedState ?? `${visualMood} idle`;
   const targetLabel = sessionBundle.discordTarget?.speakerName ?? "current target";
+  const activeVisual = runtimeState.visual;
 
   return (
     <section className="call-stage">
@@ -297,22 +363,27 @@ export function ChatPlayground() {
               <div className="virtual-human-aura" />
               <div className="virtual-human-card">
                 <div className="virtual-human-portrait compact-portrait">
-                  <div className="virtual-human-shadow" />
-                  <div className="virtual-human-face">
-                    <span className="virtual-human-eyes" />
-                    <span className="virtual-human-mouth" />
-                  </div>
+                  {activeVisual ? (
+                    <img
+                      alt={`${humanName} visual state`}
+                      className="virtual-human-image"
+                      src={activeVisual.imageDataUri}
+                    />
+                  ) : (
+                    <>
+                      <div className="virtual-human-shadow" />
+                      <div className="virtual-human-face">
+                        <span className="virtual-human-eyes" />
+                        <span className="virtual-human-mouth" />
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="virtual-human-meta">
                   <strong>{humanName}</strong>
                   <span>{visualStateLabel}</span>
                 </div>
               </div>
-            </div>
-            <div className="minimal-presence-meta">
-              <span>{buildSourceLabel(sessionBundle)}</span>
-              <span>{lastEmotionTag || "steady_care"}</span>
-              <span>{careSignature}</span>
             </div>
             {latestSpeech ? <audio controls preload="none" ref={audioRef} src={audioSrc} /> : null}
           </div>
@@ -362,13 +433,6 @@ export function ChatPlayground() {
           {runtimeState.speechError ? <div className="error-banner">{runtimeState.speechError}</div> : null}
         </div>
       )}
-
-      <div className="call-footer-line minimal-footer-line">
-        <span>{buildSourceLabel(sessionBundle)}</span>
-        <span>{targetLabel}</span>
-        <span>{lastActionIntent ?? "chat"}</span>
-        <span>{visualPrompt}</span>
-      </div>
     </section>
   );
 }

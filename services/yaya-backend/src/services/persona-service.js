@@ -14,7 +14,13 @@ export async function compilePersona(profile) {
     return samplePersona;
   }
 
-  const payload = extractJsonObject(response.content);
+  let payload = null;
+
+  try {
+    payload = extractJsonObject(response.content);
+  } catch {
+    return samplePersona;
+  }
 
   return {
     name: payload.name ?? samplePersona.name,

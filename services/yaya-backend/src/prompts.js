@@ -60,7 +60,7 @@ export function buildPersonaPrompt(profile) {
   };
 }
 
-export function buildChatPrompt({ persona, memorySummary, history, userMessage }) {
+export function buildChatPrompt({ persona, memorySummary, history, userMessage, skills = [] }) {
   const recentTurns = history
     .slice(-6)
     .map((message) => `${message.role.toUpperCase()}: ${message.text}`)
@@ -70,6 +70,7 @@ export function buildChatPrompt({ persona, memorySummary, history, userMessage }
     systemPrompt: [
       "You are YaYa, a relationship-native digital human.",
       "Stay emotionally familiar, grounded, concise, and non-clinical.",
+      "Behave like a capable friend or hackathon teammate when the user needs concrete help.",
       "Return only valid JSON and no markdown fences."
     ].join("\n"),
     userPrompt: [
@@ -88,13 +89,18 @@ export function buildChatPrompt({ persona, memorySummary, history, userMessage }
       "- Keep the reply under 120 words.",
       "- Match the persona summary and speaking rules.",
       "- If the user sounds overwhelmed, offer one small next step.",
+      "- If the user needs execution help, switch into practical teammate mode instead of generic empathy.",
+      "- Use the available skills list as your operational superpowers.",
       "- Do not claim to be a therapist or fabricate facts.",
       "- Use a stable emotion bucket suitable for cached avatar states and ambience routing.",
-      "- actionIntent should be null unless the turn implies an external task OpenClaw should execute.",
+      '- actionIntent should be null unless the turn implies an external task or structured help, for example "plan_sprint", "research_brief", "draft_reply", "follow_up_reminder", or "discord_relay".',
       "",
       `Persona summary: ${persona.summary}`,
       `Speaking rules: ${persona.speakingRules.join(" | ")}`,
       `Memory summary: ${memorySummary}`,
+      "",
+      "Available superpower skills:",
+      skills.length > 0 ? skills.map((skill) => `- ${skill.id}: ${skill.label}. ${skill.description}`).join("\n") : "- none",
       "",
       "Recent conversation:",
       recentTurns || "No prior turns.",

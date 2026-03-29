@@ -14,7 +14,13 @@ export async function analyzeRelationalData(transcript) {
     return sampleProfile;
   }
 
-  const payload = extractJsonObject(response.content);
+  let payload = null;
+
+  try {
+    payload = extractJsonObject(response.content);
+  } catch {
+    return sampleProfile;
+  }
 
   return {
     relationshipLabel: payload.relationshipLabel ?? sampleProfile.relationshipLabel,
