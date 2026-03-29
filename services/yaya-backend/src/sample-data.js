@@ -102,8 +102,34 @@ export const sampleAvatar = {
   palette: ["sand", "olive", "ink", "cream"]
 };
 
-export function buildSampleReply(userText) {
+export function buildSampleReply(userText, context = {}) {
   const lower = String(userText).toLowerCase();
+  const skills = Array.isArray(context.skills) ? context.skills.map((skill) => skill.id) : [];
+
+  if (
+    lower.includes("hackathon") ||
+    lower.includes("demo") ||
+    lower.includes("ship") ||
+    skills.includes("hackathon_copilot")
+  ) {
+    return {
+      message: {
+        id: `reply-${Date.now()}`,
+        role: "assistant",
+        text: "Okay, teammate mode. Tonight just do three things: lock the demo flow, cut anything non-essential, and prepare a 30-second opening. If you want, send me the current feature list and I’ll trim it with you.",
+        timestamp: new Date().toISOString(),
+        turnType: "light_suggestion"
+      },
+      rationale: [
+        "Shifted into practical execution mode",
+        "Offered a compact plan with shippable priorities",
+        "Kept the tone familiar and direct"
+      ],
+      emotionTag: "encouraging_push",
+      actionIntent: "plan_sprint"
+    };
+  }
+
   const reminder =
     lower.includes("sleep") || lower.includes("late")
       ? "Finish the one thing that actually matters, then stop for tonight."
@@ -121,7 +147,8 @@ export function buildSampleReply(userText) {
       "Matched familiar practical-care tone",
       "Kept response brief and emotionally supportive",
       "Offered one concrete next step"
-    ]
+    ],
+    emotionTag: lower.includes("stress") ? "concerned_supportive" : "steady_care",
+    actionIntent: null
   };
 }
-

@@ -30,10 +30,14 @@ export async function runDialogue(input) {
   });
 
   if (response.mode === "mock") {
-    return buildSampleReply(input.userMessage);
+    return {
+      ...buildSampleReply(input.userMessage, { skills: activeSkills }),
+      memorySummary: derivedMemorySummary,
+      activeSkills
+    };
   }
 
-  const fallback = buildSampleReply(input.userMessage);
+  const fallback = buildSampleReply(input.userMessage, { skills: activeSkills });
   let payload = null;
 
   try {

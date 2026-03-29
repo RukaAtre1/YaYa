@@ -142,7 +142,9 @@ app.post("/v1/chat", async (request, response, next) => {
       userMessage: request.body?.userMessage ?? "",
       history: request.body?.history ?? [],
       persona: request.body?.persona ?? samplePersona,
-      memorySummary: request.body?.memorySummary ?? summarizeMemory()
+      profile: request.body?.profile ?? sampleProfile,
+      memorySummary: request.body?.memorySummary ?? summarizeMemory(),
+      activeSkills: request.body?.activeSkills ?? []
     });
 
     response.json(reply);
